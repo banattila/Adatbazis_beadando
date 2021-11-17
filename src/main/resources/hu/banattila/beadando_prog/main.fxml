@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="hu.banattila.beadando_prog.MainController">
+  <children>
+    <TabPane>
+      <Tab fx:id="ugyfelek" text="Ügyfelek">
+        <fx:include source="ugyfelek.fxml"/>
+      </Tab>
+      <Tab fx:id="dolgozok" text="Dolgozók">
+        <fx:include source="dolgozok.fxml"/>
+      </Tab>
+    </TabPane>
+  </children>
+</AnchorPane>

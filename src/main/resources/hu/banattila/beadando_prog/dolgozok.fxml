@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="dolgozok" fx:id="dolgozok" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.DolgozokController">
+   <children>
+      <TableView fx:id="dolgozokTable" layoutX="58.0" layoutY="90.0" prefHeight="225.0" prefWidth="533.0">
+        <columns>
+          <TableColumn fx:id="dolgozokAdoszam" prefWidth="152.0" text="Adószám" />
+          <TableColumn fx:id="dolgozokVNev" prefWidth="214.0" text="Vezetéknév" />
+            <TableColumn fx:id="dolgozokKNev" prefWidth="166.0" text="Keresztnév" />
+        </columns>
+      </TableView>
+      <Label layoutX="283.0" layoutY="22.0" text="Dolgozók">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="283.0" layoutY="342.0" text="Futárok">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="futarokTable" layoutX="51.0" layoutY="430.0" prefHeight="225.0" prefWidth="533.0">
+         <columns>
+            <TableColumn fx:id="futarokAdoszam" prefWidth="152.0" text="Adószám" />
+            <TableColumn fx:id="futarokVNev" prefWidth="129.0" text="Vezetéknév" />
+            <TableColumn fx:id="futarokKNev" prefWidth="137.0" text="Keresztnév" />
+            <TableColumn fx:id="futarokDolgozik" prefWidth="114.0" text="Dolgozik" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

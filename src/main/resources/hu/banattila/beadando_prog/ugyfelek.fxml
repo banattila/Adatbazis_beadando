@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.UgyfelController">
+    <TableView id="tw" fx:id="tw" prefHeight="337.0" prefWidth="732.0">
+        <columns>
+            <TableColumn id="email" fx:id="email" prefWidth="337.0" text="Email"/>
+            <TableColumn fx:id="vezeteknev" prefWidth="175.0" text="Vezetéknév"/>
+            <TableColumn fx:id="keresztnev" prefWidth="219.0" text="Keresztnév"/>
+        </columns>
+    </TableView>
+</AnchorPane>
