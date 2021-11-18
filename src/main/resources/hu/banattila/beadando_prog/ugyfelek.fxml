@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.UgyfelController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.UgyfelController">
     <TableView id="tw" fx:id="tw" prefHeight="337.0" prefWidth="732.0">
         <columns>
-            <TableColumn id="email" fx:id="email" prefWidth="337.0" text="Email"/>
-            <TableColumn fx:id="vezeteknev" prefWidth="175.0" text="Vezetéknév"/>
-            <TableColumn fx:id="keresztnev" prefWidth="219.0" text="Keresztnév"/>
+            <TableColumn id="email" fx:id="email" prefWidth="337.0" text="Email" />
+            <TableColumn fx:id="vezeteknev" prefWidth="175.0" text="Vezetéknév" />
+            <TableColumn fx:id="keresztnev" prefWidth="219.0" text="Keresztnév" />
+         <TableColumn prefWidth="75.0" text="Column X" />
         </columns>
     </TableView>
+   <Button fx:id="refresh" layoutX="750.0" layoutY="14.0" mnemonicParsing="false" text="Lista Frissítése" />
+   <Label layoutX="282.0" layoutY="440.0" text="Új ügyfél felvétele" />
+   <TextField fx:id="newEmail" layoutX="68.0" layoutY="509.0" promptText="Email" />
+   <TextField fx:id="newVNev" layoutX="256.0" layoutY="509.0" promptText="Vezetéknév" />
+   <TextField fx:id="newKNev" layoutX="456.0" layoutY="509.0" promptText="Keresztnév" />
+   <Button fx:id="addUgyfel" layoutX="701.0" layoutY="509.0" mnemonicParsing="false" text="Ügyfél hozzáadása" />
+   <Button fx:id="deleteUgyfel" layoutX="808.0" layoutY="337.0" mnemonicParsing="false" text="Kijelölt elem törlése" />
 </AnchorPane>
