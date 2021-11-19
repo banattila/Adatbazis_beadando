@@ -1,32 +1,27 @@
 package hu.banattila.beadando_prog.models;
 
-public class Futar {
+public class Futar extends Dolgozo{
 
-    private String adoszam;
-    private boolean elerheto = false;
+    private String elerheto = "Nem";
 
-    public Futar(String adoszam){
-        this.adoszam = adoszam;
+    public Futar(String adoszam, String vnev, String knev){
+        super(adoszam, vnev, knev);
     }
 
-    public Futar(String adoszam, boolean elerheto) {
-        this.adoszam = adoszam;
-        this.elerheto = elerheto;
+    public Futar(String adoszam,String vnev, String knev, boolean elerheto) {
+        super(adoszam, vnev, knev);
+        setElerheto(elerheto);
     }
 
-    public String getAdoszam() {
-        return adoszam;
-    }
-
-    public void setAdoszam(String adoszam) {
-        this.adoszam = adoszam;
-    }
-
-    public boolean isElerheto() {
+    public String getElerheto() {
         return elerheto;
     }
 
     public void setElerheto(boolean elerheto) {
-        this.elerheto = elerheto;
+        if (elerheto){
+            this.elerheto = "Igen";
+        } else {
+            this.elerheto = "Nem";
+        }
     }
 }

@@ -16,6 +16,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.27</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>11.0.2</version>
@@ -80,7 +86,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>hu.banattila.beadando_prog/hu.banattila.beadando_prog.HelloApplication
+                            <mainClass>hu.banattila.beadando_prog/hu.banattila.beadando_prog.Main
                             </mainClass>
                         </configuration>
                     </execution>
