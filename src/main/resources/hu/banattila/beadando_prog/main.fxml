@@ -13,6 +13,9 @@
       <Tab fx:id="dolgozok" text="Dolgozók">
         <fx:include source="dolgozok.fxml"/>
       </Tab>
+      <Tab fx:id="feltetek" text="Feltétek">
+        <fx:include source="feltetek.fxml"/>
+      </Tab>
     </TabPane>
   </children>
 </AnchorPane>

@@ -18,6 +18,9 @@ public class MainController implements Initializable {
     @FXML
     private Tab dolgozok;
 
+    @FXML
+    private Tab feltetek;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

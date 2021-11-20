@@ -16,11 +16,14 @@
          <TableColumn prefWidth="75.0" text="Column X" />
         </columns>
     </TableView>
-   <Button fx:id="refresh" layoutX="750.0" layoutY="14.0" mnemonicParsing="false" text="Lista Frissítése" />
-   <Label layoutX="282.0" layoutY="440.0" text="Új ügyfél felvétele" />
-   <TextField fx:id="newEmail" layoutX="68.0" layoutY="509.0" promptText="Email" />
-   <TextField fx:id="newVNev" layoutX="256.0" layoutY="509.0" promptText="Vezetéknév" />
-   <TextField fx:id="newKNev" layoutX="456.0" layoutY="509.0" promptText="Keresztnév" />
-   <Button fx:id="addUgyfel" layoutX="701.0" layoutY="509.0" mnemonicParsing="false" text="Ügyfél hozzáadása" />
-   <Button fx:id="deleteUgyfel" layoutX="808.0" layoutY="337.0" mnemonicParsing="false" text="Kijelölt elem törlése" />
+   <Label layoutX="282.0" layoutY="384.0" text="Új ügyfél felvétele" />
+   <TextField fx:id="newEmail" layoutX="68.0" layoutY="453.0" promptText="Email" />
+   <TextField fx:id="newVNev" layoutX="256.0" layoutY="453.0" promptText="Vezetéknév" />
+   <TextField fx:id="newKNev" layoutX="456.0" layoutY="453.0" promptText="Keresztnév" />
+   <Button fx:id="addUgyfel" layoutX="701.0" layoutY="453.0" mnemonicParsing="false" text="Ügyfél hozzáadása" />
+   <Button fx:id="deleteUgyfel" layoutX="768.0" layoutY="58.0" mnemonicParsing="false" text="Kijelölt elem törlése" />
+   <Label layoutX="94.0" layoutY="565.0" text="Kijelölt ügyfél adadtainak frissítése. Az üresen hagyott mező értékei nem változnak" />
+   <TextField fx:id="updateVNev" layoutX="73.0" layoutY="604.0" promptText="Vezetéknév" />
+   <TextField fx:id="updateKNev" layoutX="273.0" layoutY="604.0" promptText="Keresztnév" />
+   <Button fx:id="updateUgyfel" layoutX="518.0" layoutY="604.0" mnemonicParsing="false" text="Ügyfél adatainak frissítése" />
 </AnchorPane>
