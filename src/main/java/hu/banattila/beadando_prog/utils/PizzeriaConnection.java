@@ -5,6 +5,7 @@ import hu.banattila.beadando_prog.models.Feltet;
 import hu.banattila.beadando_prog.models.Futar;
 import hu.banattila.beadando_prog.models.Ugyfel;
 
+import java.io.StringReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -286,6 +287,90 @@ public class PizzeriaConnection {
             res = false;
             e.printStackTrace();
         }
+        closeConnection();
+        return res;
+    }
+
+    public boolean deleteFeltet(String megnevezes){
+        boolean res = true;
+        connecting();
+        try {
+            pstmt = conn.prepareStatement("DELETE FROM FELTET WHERE megnevezes = ?");
+            pstmt.setString(1, megnevezes);
+            pstmt.execute();
+        } catch (SQLException e){
+            res = false;
+            e.printStackTrace();
+        }
+        closeConnection();
+        return res;
+    }
+
+    public Feltet searchFeltetByMegnevezes(String megnevezes){
+        Feltet res = null;
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("SELECT * FROM FELTET WHERE megnevezes = ? LIMIT 1");
+            pstmt.setString(1, megnevezes);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                res = new Feltet(rs.getString("megnevezes"), rs.getInt("ar"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        closeConnection();
+        return res;
+    }
+
+    public boolean updateFeltetArByMegnevezes(String megnevezes, int ar){
+        boolean res = true;
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("UPDATE FELTET SET ar = ? WHERE megnevezes = ?");
+            pstmt.setInt(1, ar);
+            pstmt.setString(2, megnevezes);
+            pstmt.execute();
+        } catch (SQLException e){
+            res = false;
+            e.printStackTrace();
+        }
+
+        closeConnection();
+        return res;
+    }
+
+    public boolean incFeltetAr(){
+        boolean res = true;
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("UPDATE FELTET SET ar = (ar * 1.1)");
+            pstmt.execute();
+        } catch (SQLException e){
+            res = false;
+            e.printStackTrace();
+        }
+
+        closeConnection();
+        return res;
+    }
+
+    public boolean decFeltetAr(){
+        boolean res = true;
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("UPDATE FELTET SET ar = (ar * 0.9)");
+            pstmt.execute();
+        } catch (SQLException e){
+            res = false;
+            e.printStackTrace();
+        }
+
         closeConnection();
         return res;
     }

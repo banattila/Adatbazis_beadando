@@ -15,7 +15,7 @@ public class Main extends Application {
         pc = new PizzeriaConnection();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
-        stage.setTitle("Hello!");
+        stage.setTitle("Pizzéria");
         stage.setScene(scene);
         stage.show();
     }
