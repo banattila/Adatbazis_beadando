@@ -32,6 +32,13 @@
                                                prefWidth="150.0"/>
                                 <TextField fx:id="newkispizzaAlap" layoutX="278.0" layoutY="479.0" prefWidth="150.0"
                                            promptText="Alap"/>
+                                <Label layoutX="450" layoutY="519" text="Kijelölt pizza árának frissítése"/>
+                                <TextField fx:id="updatekispizzaAr" layoutX="664.0" layoutY="519.0" promptText="Ár"/>
+                                <Button fx:id="updatekispizzaBtn" layoutX="878.0" layoutY="519.0"
+                                        mnemonicParsing="false" text="Frissít"/>
+                                <Label layoutX="700" layoutY="559" text="Kijelölt pizza törlése"/>
+                                <Button fx:id="deletekispizzaBtn" layoutX="878.0" layoutY="559.0"
+                                        mnemonicParsing="false" text="Töröl"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -61,6 +68,13 @@
                                                prefWidth="150.0"/>
                                 <TextField fx:id="newkozepespizzaAlap" layoutX="278.0" layoutY="479.0" prefWidth="150.0"
                                            promptText="Alap"/>
+                                <Label layoutX="450" layoutY="519" text="Kijelölt pizza árának frissítése"/>
+                                <TextField fx:id="updatekozepespizzaAr" layoutX="664.0" layoutY="519.0" promptText="Ár"/>
+                                <Button fx:id="updatekozepespizzaBtn" layoutX="878.0" layoutY="519.0"
+                                        mnemonicParsing="false" text="Frissít"/>
+                                <Label layoutX="700" layoutY="559" text="Kijelölt pizza törlése"/>
+                                <Button fx:id="deletekozepespizzaBtn" layoutX="878.0" layoutY="559.0"
+                                        mnemonicParsing="false" text="Töröl"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -89,6 +103,13 @@
                                                prefWidth="150.0"/>
                                 <TextField fx:id="newcsaladipizzaAlap" layoutX="278.0" layoutY="479.0" prefWidth="150.0"
                                            promptText="Alap"/>
+                                <Label layoutX="450" layoutY="519" text="Kijelölt pizza árának frissítése"/>
+                                <TextField fx:id="updatecsaladipizzaAr" layoutX="664.0" layoutY="519.0" promptText="Ár"/>
+                                <Button fx:id="updatecsaladipizzaBtn" layoutX="878.0" layoutY="519.0"
+                                        mnemonicParsing="false" text="Frissít"/>
+                                <Label layoutX="700" layoutY="559" text="Kijelölt pizza törlése"/>
+                                <Button fx:id="deletecsaladipizzaBtn" layoutX="878.0" layoutY="559.0"
+                                        mnemonicParsing="false" text="Töröl"/>
                             </children>
                         </AnchorPane>
                     </content>

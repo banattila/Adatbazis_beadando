@@ -6,6 +6,7 @@ import hu.banattila.beadando_prog.utils.MyAlert;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -121,6 +122,33 @@ public class PizzakController implements Initializable {
     @FXML
     private TextField newcsaladipizzaAlap;
 
+    @FXML
+    private TextField updatekispizzaAr;
+
+    @FXML
+    private Button updatekispizzaBtn;
+
+    @FXML
+    private TextField updatekozepespizzaAr;
+
+    @FXML
+    private Button updatekozepespizzaBtn;
+
+    @FXML
+    private TextField updatecsaladipizzaAr;
+
+    @FXML
+    private Button updatecsaladipizzaBtn;
+
+    @FXML
+    private Button deletekispizzaBtn;
+
+    @FXML
+    private Button deletekozepespizzaBtn;
+
+    @FXML
+    private Button deletecsaladipizzaBtn;
+
 
     private void getKisPizzak() {
         kispizzakTw.setItems(FXCollections.observableArrayList(Main.pc.getPizzak(KIS_MERET)));
@@ -183,7 +211,6 @@ public class PizzakController implements Initializable {
         boolean ok = true;
         String fajta = newkozepespizzaFajta.getText();
         String alap = newkozepespizzaAlap.getText();
-        List<String> osszetevok = new ArrayList<>();
         int ar = 0;
 
         if (fajta.isEmpty() || fajta.isBlank()) {
@@ -268,6 +295,66 @@ public class PizzakController implements Initializable {
         }
     }
 
+    private void updatePizzak(TableView tw, TextField arCol, int meret){
+        if(!tw.getSelectionModel().getSelectedItems().isEmpty()){
+            TableView.TableViewSelectionModel sm = tw.getSelectionModel();
+            sm.setSelectionMode(SelectionMode.SINGLE);
+            ObservableList os = sm.getSelectedItems();
+            Pizza p = (Pizza) os.get(0);
+            int newAr = 0;
+            boolean ok = true;
+            if (arCol.getText().isBlank() || arCol.getText().isEmpty()){
+                new MyAlert("Hibás érték", "Az ár nem lehet üres");
+                ok = false;
+            }
+            if (ok){
+                newAr = Integer.parseInt(arCol.getText());
+                MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres frissítés",
+                        Main.pc.updatePizza(p.getFajta(), newAr, meret), Main.pc.getPizzak(meret), tw);
+            }
+
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setTitle("Nincs kijelölve");
+            a.setContentText("Nincs kijelölve egy pizza sem");
+            a.show();
+        }
+    }
+
+    private void setUpdatePizzak(){
+        updatekispizzaBtn.setOnAction(e -> updatePizzak(kispizzakTw, updatekispizzaAr, KIS_MERET));
+        updatekozepespizzaBtn.setOnAction(e -> updatePizzak(kozepespizzakTw, updatekozepespizzaAr, KOZEPES_MERET));
+        updatecsaladipizzaBtn.setOnAction(e -> updatePizzak(csaladipizzakTw, updatecsaladipizzaAr, CSALADI_MERET));
+    }
+
+    private void deletePizzak(TableView<Pizza> tw){
+        if (!tw.getSelectionModel().getSelectedItems().isEmpty()){
+            TableView.TableViewSelectionModel sm = tw.getSelectionModel();
+            sm.setSelectionMode(SelectionMode.SINGLE);
+            ObservableList os = sm.getSelectedItems();
+            Pizza p = (Pizza) os.get(0);
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("TÖRLÉS");
+            a.setContentText("Biztosan törlöd?");
+            if (a.showAndWait().get() == ButtonType.OK){
+                MyAlert.alertWithAction(a, "Sikeres törlés",
+                        Main.pc.deletePizza(p.getFajta(), p.getMeret()),
+                        Main.pc.getPizzak(p.getMeret()), tw);
+            }
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setTitle("Nincs kijelölve");
+            a.setContentText("Nincs kijelölve egy pizza sem");
+            a.show();
+        }
+    }
+
+    private void setDeletePizzak(){
+        deletecsaladipizzaBtn.setOnAction(e -> deletePizzak(csaladipizzakTw));
+        deletekispizzaBtn.setOnAction(e -> deletePizzak(kispizzakTw));
+        deletekozepespizzaBtn.setOnAction(e -> deletePizzak(kozepespizzakTw));
+    }
+
     private void setAlapokEsOsszetevok() {
         List<Feltet> feltetek = Main.pc.getFeltetek();
         List<String> osszetevok = new ArrayList<>();
@@ -301,6 +388,8 @@ public class PizzakController implements Initializable {
         addkispizzaBtn.setOnAction(e -> addNewKisPizza());
         addkozepespizzaBtn.setOnAction(e -> addNewKozepesPizza());
         addcsaladipizzaBtn.setOnAction(e -> addNewCsaladiPizza());
+        setUpdatePizzak();
+        setDeletePizzak();
 
 
     }

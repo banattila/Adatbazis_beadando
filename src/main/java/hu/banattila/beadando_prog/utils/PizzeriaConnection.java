@@ -448,4 +448,53 @@ public class PizzeriaConnection {
         closeConnection();
         return res;
     }
+
+    public boolean updatePizza(String fajta, int ar, int meret){
+        boolean res = true;
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("UPDATE PIZZA SET ar = ? WHERE fajta = ? AND meret = ?");
+            pstmt.setInt(1, ar);
+            pstmt.setString(2, fajta);
+            pstmt.setInt(3, meret);
+            pstmt.execute();
+        } catch (SQLException e){
+            res = false;
+            e.printStackTrace();
+        }
+
+        closeConnection();
+        return res;
+    }
+
+    public boolean deletePizza(String fajta, int meret){
+        boolean res = true;
+        connecting();
+
+        try {
+            //delete from alap
+            pstmt = conn.prepareStatement("DELETE FROM PIZZA_ALAP WHERE fajta = ?");
+            pstmt.setString(1, fajta);
+            pstmt.execute();
+
+            //delete from tartalmaz
+            pstmt = conn.prepareStatement("DELETE FROM TARTALMAZ WHERE fajta = ?");
+            pstmt.setString(1, fajta);
+            pstmt.execute();
+
+            //delete from pizza
+            pstmt = conn.prepareStatement("DELETE FROM PIZZA WHERE fajta = ? AND meret = ?");
+            pstmt.setString(1, fajta);
+            pstmt.setInt(2, meret);
+            pstmt.execute();
+
+        } catch (SQLException e){
+            res = false;
+            e.printStackTrace();
+        }
+
+        closeConnection();
+        return res;
+    }
 }
