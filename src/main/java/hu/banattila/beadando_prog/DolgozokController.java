@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class DolgozokController implements Initializable {
 
     @FXML
-    private TableView<Dolgozo> dolgozokTable;
+    protected TableView<Dolgozo> dolgozokTable;
 
     @FXML
     private TableView<Futar> futarokTable;
@@ -92,6 +92,7 @@ public class DolgozokController implements Initializable {
 
     @FXML
     private Button updateFutarData;
+
 
     private void addNewDolgozo() {
         boolean valid = true;

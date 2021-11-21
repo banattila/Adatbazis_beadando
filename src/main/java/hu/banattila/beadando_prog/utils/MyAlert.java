@@ -18,16 +18,16 @@ public class MyAlert {
 
     public static <T> void alertWithAction(
             Alert alert, String message,
-            boolean action, List<T> getAction, TableView<T> tw) {
-        boolean res = action;
+            String action, List<T> getAction, TableView<T> tw) {
+        String res = action;
         tw.setItems(FXCollections.observableArrayList(getAction));
         alert.setAlertType(Alert.AlertType.INFORMATION);
-        if (res) {
+        if (res == "Ok") {
             alert.setTitle("Siker");
             alert.setContentText(message);
         } else {
             alert.setTitle("Hiba");
-            alert.setContentText("Hiba a folyamat során");
+            alert.setContentText(res);
         }
         alert.show();
     }

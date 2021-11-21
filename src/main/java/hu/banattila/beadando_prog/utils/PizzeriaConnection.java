@@ -3,7 +3,10 @@ package hu.banattila.beadando_prog.utils;
 import hu.banattila.beadando_prog.models.*;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class PizzeriaConnection {
@@ -37,6 +40,22 @@ public class PizzeriaConnection {
         }
     }
 
+    public String getUgyfelByEmail(String email) {
+        String res = null;
+
+        try {
+            pstmt = conn.prepareStatement("SELECT email FROM UGYFEL WHERE email = ? ");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                res = rs.getString("email");
+            }
+        } catch (SQLException e) {
+            res = e.getMessage();
+        }
+
+        return res;
+    }
+
     public List<Ugyfel> getUgyfelek() {
         connecting();
         List<Ugyfel> result = new ArrayList<>();
@@ -54,9 +73,9 @@ public class PizzeriaConnection {
         return result;
     }
 
-    public boolean insertUgyfel(String email, String vnev, String knev) {
+    public String insertUgyfel(String email, String vnev, String knev) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("INSERT INTO UGYFEL VALUES(?, ?, ?)");
 
@@ -65,40 +84,37 @@ public class PizzeriaConnection {
             pstmt.setString(3, knev);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean updateUgyfel(String email, String vnev, String knev) {
+    public String updateUgyfel(String email, String vnev, String knev) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("UPDATE UGYFEL SET vezeteknev = ?, keresztnev = ? WHERE email = ?");
             pstmt.setString(1, vnev);
             pstmt.setString(2, knev);
             pstmt.setString(3, email);
             pstmt.execute();
-        } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+        } catch (Exception e) {
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean deleteUgyfel(String email) {
+    public String deleteUgyfel(String email) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("DELETE FROM UGYFEL WHERE email = ?");
             pstmt.setString(1, email);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
@@ -121,9 +137,9 @@ public class PizzeriaConnection {
         return result;
     }
 
-    public boolean insertDolgozo(String adoszam, String vnev, String knev) {
+    public String insertDolgozo(String adoszam, String vnev, String knev) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("INSERT INTO DOLGOZO VALUES(?, ?, ?)");
 
@@ -132,16 +148,15 @@ public class PizzeriaConnection {
             pstmt.setString(3, knev);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean updateDolgozo(String adoszam, String vnev, String knev) {
+    public String updateDolgozo(String adoszam, String vnev, String knev) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("UPDATE DOLGOZO SET vezeteknev = ?, keresztnev = ? WHERE adoszam = ?");
             pstmt.setString(1, vnev);
@@ -149,23 +164,21 @@ public class PizzeriaConnection {
             pstmt.setString(3, adoszam);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean deleteDolgozo(String adoszam) {
+    public String deleteDolgozo(String adoszam) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("DELETE FROM DOLGOZO WHERE adoszam = ?");
             pstmt.setString(1, adoszam);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
@@ -188,9 +201,9 @@ public class PizzeriaConnection {
         return result;
     }
 
-    public boolean insertFutarok(String adoszam, String vnev, String knev) {
+    public String insertFutarok(String adoszam, String vnev, String knev) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("INSERT INTO DOLGOZO VALUES(?, ?, ?)");
 
@@ -203,16 +216,15 @@ public class PizzeriaConnection {
             pstmt.setBoolean(2, false);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean deleteFutarok(String adoszam) {
+    public String deleteFutarok(String adoszam) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("DELETE FROM FUTAR WHERE adoszam = ?");
             pstmt.setString(1, adoszam);
@@ -221,16 +233,15 @@ public class PizzeriaConnection {
             pstmt.setString(1, adoszam);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean updateFutar(String adoszam) {
+    public String updateFutar(String adoszam) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("SELECT elerheto FROM FUTAR WHERE adoszam = ?");
             pstmt.setString(1, adoszam);
@@ -245,8 +256,7 @@ public class PizzeriaConnection {
             pstmt.setString(2, adoszam);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
@@ -268,32 +278,30 @@ public class PizzeriaConnection {
         return res;
     }
 
-    public boolean insertFeltet(String megnevezes, int ar) {
+    public String insertFeltet(String megnevezes, int ar) {
         connecting();
-        boolean res = true;
+        String res = "Ok";
         try {
             pstmt = conn.prepareStatement("INSERT INTO FELTET VALUES(?, ?)");
             pstmt.setString(1, megnevezes);
             pstmt.setInt(2, ar);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean deleteFeltet(String megnevezes) {
-        boolean res = true;
+    public String deleteFeltet(String megnevezes) {
+        String res = "Ok";
         connecting();
         try {
             pstmt = conn.prepareStatement("DELETE FROM FELTET WHERE megnevezes = ?");
             pstmt.setString(1, megnevezes);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
@@ -318,8 +326,8 @@ public class PizzeriaConnection {
         return res;
     }
 
-    public boolean updateFeltetArByMegnevezes(String megnevezes, int ar) {
-        boolean res = true;
+    public String updateFeltetArByMegnevezes(String megnevezes, int ar) {
+        String res = "Ok";
         connecting();
 
         try {
@@ -328,40 +336,37 @@ public class PizzeriaConnection {
             pstmt.setString(2, megnevezes);
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
 
         closeConnection();
         return res;
     }
 
-    public boolean incFeltetAr() {
-        boolean res = true;
+    public String incFeltetAr() {
+        String res = "Ok";
         connecting();
 
         try {
             pstmt = conn.prepareStatement("UPDATE FELTET SET ar = (ar * 1.1)");
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
 
         closeConnection();
         return res;
     }
 
-    public boolean decFeltetAr() {
-        boolean res = true;
+    public String decFeltetAr() {
+        String res = "Ok";
         connecting();
 
         try {
             pstmt = conn.prepareStatement("UPDATE FELTET SET ar = (ar * 0.9)");
             pstmt.execute();
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
 
         closeConnection();
@@ -397,6 +402,25 @@ public class PizzeriaConnection {
         return res;
     }
 
+    public List<String> pizzaFajtak(){
+        List<String> res = new ArrayList<>();
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("SELECT DISTINCT fajta FROM PIZZA");
+            rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                res.add(rs.getString("fajta"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        closeConnection();
+        return res;
+    }
+
     public List<String> getAlapok() {
         List<String> res = new ArrayList<>();
         connecting();
@@ -415,8 +439,8 @@ public class PizzeriaConnection {
         return res;
     }
 
-    public boolean addPizzak(String fajta, List<String> osszetevok, String alap, int ar, int meret) {
-        boolean res = true;
+    public String addPizzak(String fajta, List<String> osszetevok, String alap, int ar, int meret) {
+        String res = "Ok";
         connecting();
         try {
             //insert pizza
@@ -442,15 +466,14 @@ public class PizzeriaConnection {
             }
 
         } catch (SQLException e) {
-            res = false;
-            e.printStackTrace();
+            res = e.getMessage();
         }
         closeConnection();
         return res;
     }
 
-    public boolean updatePizza(String fajta, int ar, int meret){
-        boolean res = true;
+    public String updatePizza(String fajta, int ar, int meret) {
+        String res = "Ok";
         connecting();
 
         try {
@@ -459,17 +482,16 @@ public class PizzeriaConnection {
             pstmt.setString(2, fajta);
             pstmt.setInt(3, meret);
             pstmt.execute();
-        } catch (SQLException e){
-            res = false;
-            e.printStackTrace();
+        } catch (SQLException e) {
+            res = e.getMessage();
         }
 
         closeConnection();
         return res;
     }
 
-    public boolean deletePizza(String fajta, int meret){
-        boolean res = true;
+    public String deletePizza(String fajta, int meret) {
+        String res = "Ok";
         connecting();
 
         try {
@@ -489,8 +511,128 @@ public class PizzeriaConnection {
             pstmt.setInt(2, meret);
             pstmt.execute();
 
+        } catch (SQLException e) {
+            res = e.getMessage();
+        }
+
+        closeConnection();
+        return res;
+    }
+
+    public List<Rendeles> getRendelesek() {
+        List<Rendeles> res = new ArrayList<>();
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("SELECT * FROM RENDELES NATURAL JOIN RENDELES_OSSZEGE NATURAL JOIN TELEPULES");
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                res.add(new Rendeles(
+                        LocalDateTime.parse(rs.getString("rendeles_ideje"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        rs.getString("email"),
+                        rs.getString("fajta"),
+                        rs.getInt("meret"),
+                        rs.getInt("rendelt_mennyiseg"),
+                        rs.getInt("irsz"),
+                        rs.getString("telepules"),
+                        rs.getString("utca"),
+                        rs.getInt("hazszam"),
+                        rs.getString("adoszam"),
+                        rs.getInt("fizetendo")
+                        ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        closeConnection();
+        return res;
+    }
+
+    public String insertRendeles(String email, String vnev, String knev, String fajta, int meret,
+                                 int mennyiseg, int irsz, String telepules, String utca,
+                                 int hazszam){
+        String res = "Ok";
+        connecting();
+
+        try {
+
+            //check available futar
+            pstmt = conn.prepareStatement("SELECT adoszam FROM FUTAR WHERE elerheto = 1");
+            rs = pstmt.executeQuery();
+
+            String elerhetoFutarok  = "";
+            while (rs.next()){
+                elerhetoFutarok = rs.getString("adoszam");
+            }
+
+            if (elerhetoFutarok.isEmpty()){
+                return "Nincs szabad futár, aki elvihetné a fuvart";
+            }
+
+            //insert ugyfel if not exists
+            pstmt = conn.prepareStatement("SELECT email FROM UGYFEL WHERE email = ?");
+            pstmt.setString(1, email);
+            rs = pstmt.executeQuery();
+            String emailInTable = "";
+            while (rs.next()){
+                emailInTable = rs.getString("email");
+            }
+            if (emailInTable.isEmpty()){
+                pstmt = conn.prepareStatement("INSERT INTO UGYFEL VALUES (?, ?, ?)");
+                pstmt.setString(1, email);
+                pstmt.setString(2, vnev);
+                pstmt.setString(3, knev);
+                pstmt.execute();
+            }
+
+            //insert telepules if not exists
+            pstmt = conn.prepareStatement("SELECT irsz FROM TELEPULES WHERE irsz = ?");
+            pstmt.setInt(1, irsz);
+            rs = pstmt.executeQuery();
+            int irszInTable = -1;
+            while (rs.next()){
+                irszInTable = rs.getInt("irsz");
+            }
+
+            if (irszInTable == -1){
+                pstmt = conn.prepareStatement("INSERT INTO TELEPULES VALUES(?, ?)");
+                pstmt.setInt(1, irsz);
+                pstmt.setString(2, telepules);
+                pstmt.execute();
+            }
+
+            pstmt = conn.prepareStatement("INSERT INTO RENDELES_OSSZEGE VALUES(?, ?, ?, (SELECT ar FROM PIZZA WHERE fajta = ? AND MERET = ?) * ?)");
+            pstmt.setString(1, fajta);
+            pstmt.setInt(2, meret);
+            pstmt.setInt(3, mennyiseg);
+            pstmt.setString(4, fajta);
+            pstmt.setInt(5, meret);
+            pstmt.setInt(6, mennyiseg);
+            pstmt.execute();
+
+            pstmt = conn.prepareStatement("INSERT INTO RENDELES VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            pstmt.setObject(1, LocalDateTime.now());
+            pstmt.setString(2, email);
+            pstmt.setString(3, fajta);
+            pstmt.setInt(4, meret);
+            pstmt.setInt(5, mennyiseg);
+            pstmt.setInt(6, irsz);
+            pstmt.setString(7, utca);
+            pstmt.setInt(8, hazszam);
+            pstmt.setString(9, elerhetoFutarok);
+            pstmt.execute();
+
+            //update futar elerheto
+            pstmt = conn.prepareStatement("UPDATE FUTAR SET elerheto = ? WHERE adoszam = ?");
+            pstmt.setBoolean(1, false);
+            pstmt.setString(2, elerhetoFutarok);
+            pstmt.execute();
+
+
         } catch (SQLException e){
-            res = false;
+            res = e.getMessage();
             e.printStackTrace();
         }
 

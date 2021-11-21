@@ -1,6 +1,7 @@
 package hu.banattila.beadando_prog.models;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Rendeles {
 
@@ -9,73 +10,55 @@ public class Rendeles {
     private String fajta;
     private int meret;
     private int rendeltMennyiseg;
-    private long cimId;
+    private String telepules;
+    private String cim;
     private String adoszam;
+    private int fizetendo;
 
 
-    public Rendeles(LocalDateTime rendelesIdeje, String email, String fajta, int meret, int rendeltMennyiseg, long cimId, String adoszam) {
+    public Rendeles(LocalDateTime rendelesIdeje, String email, String fajta, int meret,
+                    int rendeltMennyiseg, int irsz,String telepules, String utca, int hazszam, String adoszam,
+                    int fizetendo) {
         this.rendelesIdeje = rendelesIdeje;
         this.email = email;
         this.fajta = fajta;
         this.meret = meret;
         this.rendeltMennyiseg = rendeltMennyiseg;
-        this.cimId = cimId;
+        this.cim = irsz + " " + telepules + " " + utca + " " + hazszam;
         this.adoszam = adoszam;
+        this.fizetendo = fizetendo;
     }
 
-    public LocalDateTime getRendelesIdeje() {
-        return rendelesIdeje;
+    public String getRendelesIdeje() {
+        String res =  rendelesIdeje.toString();
+        return res.replace("T", " ");
     }
 
-    public void setRendelesIdeje(LocalDateTime rendelesIdeje) {
-        this.rendelesIdeje = rendelesIdeje;
+    public int getFizetendo(){
+        return fizetendo;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getFajta() {
         return fajta;
-    }
-
-    public void setFajta(String fajta) {
-        this.fajta = fajta;
     }
 
     public int getMeret() {
         return meret;
     }
 
-    public void setMeret(int meret) {
-        this.meret = meret;
-    }
-
     public int getRendeltMennyiseg() {
         return rendeltMennyiseg;
     }
 
-    public void setRendeltMennyiseg(int rendeltMennyiseg) {
-        this.rendeltMennyiseg = rendeltMennyiseg;
-    }
-
-    public long getCimId() {
-        return cimId;
-    }
-
-    public void setCimId(long cimId) {
-        this.cimId = cimId;
+    public String getCim(){
+        return cim;
     }
 
     public String getAdoszam() {
         return adoszam;
-    }
-
-    public void setAdoszam(String adoszam) {
-        this.adoszam = adoszam;
     }
 }
