@@ -1,6 +1,6 @@
 package hu.banattila.beadando_prog.models;
 
-public class Tartalmaz{
+public class Tartalmaz {
 
     private String megnevezes;
     private String fajta;

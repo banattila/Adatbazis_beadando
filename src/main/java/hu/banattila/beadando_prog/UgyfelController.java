@@ -1,6 +1,5 @@
 package hu.banattila.beadando_prog;
 
-import hu.banattila.beadando_prog.models.Futar;
 import hu.banattila.beadando_prog.models.Ugyfel;
 import hu.banattila.beadando_prog.utils.MyAlert;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -52,39 +52,38 @@ public class UgyfelController implements Initializable {
     @FXML
     private Button updateUgyfel;
 
-    private void addNewUgyfel(){
+    private void addNewUgyfel() {
         boolean valid = true;
         String email = newEmail.getText();
         String vnev = newVNev.getText();
         String knev = newKNev.getText();
 
-        if (email.isEmpty() || email.isBlank() ){
+        if (email.isEmpty() || email.isBlank()) {
             new MyAlert("Hibás érték", "Az email cím nem lehet üres");
             valid = false;
-        } else if(!email.contains("@")){
+        } else if (!email.contains("@")) {
             new MyAlert("Hibás érték", "Az nem valid email cím");
             valid = false;
         }
-        if (vnev.isBlank() || vnev.isEmpty()){
+        if (vnev.isBlank() || vnev.isEmpty()) {
             new MyAlert("Hibás érték", "Az vezetéknév nem lehet üres");
             valid = false;
         }
-        if (knev.isEmpty() || knev.isBlank()){
+        if (knev.isEmpty() || knev.isBlank()) {
             new MyAlert("Hibás érték", "Az keresztnév nem lehet üres");
             valid = false;
         }
 
-        if (valid){
+        if (valid) {
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás", Main.pc.insertUgyfel(email, vnev, knev),
                     Main.pc.getUgyfelek(), tw);
             newEmail.setText("");
             newVNev.setText("");
             newKNev.setText("");
         }
-
     }
 
-    private void updateUgyfelek(){
+    private void updateUgyfelek() {
         if (!tw.getSelectionModel().getSelectedItems().isEmpty()) {
             TableView.TableViewSelectionModel sm = tw.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
@@ -94,10 +93,10 @@ public class UgyfelController implements Initializable {
             String vnev = updateVNev.getText();
             String knev = updateKNev.getText();
 
-            if (vnev.isBlank() || vnev.isEmpty()){
+            if (vnev.isBlank() || vnev.isEmpty()) {
                 vnev = ugyfel.getVezeteknev();
             }
-            if (knev.isEmpty() || knev.isBlank()){
+            if (knev.isEmpty() || knev.isBlank()) {
                 knev = ugyfel.getKeresztnev();
             }
             MyAlert.alertWithAction(a, "Sikeres frissítés",
@@ -112,12 +111,12 @@ public class UgyfelController implements Initializable {
         }
     }
 
-    private void deleteUgyfel(){
-        if(!tw.getSelectionModel().getSelectedItems().isEmpty()){
+    private void deleteUgyfel() {
+        if (!tw.getSelectionModel().getSelectedItems().isEmpty()) {
             TableView.TableViewSelectionModel sm = tw.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
             ObservableList os = sm.getSelectedItems();
-            Ugyfel uf= (Ugyfel) os.get(0);
+            Ugyfel uf = (Ugyfel) os.get(0);
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("TÖRLÉS");
             a.setContentText("Biztosan törlöd?");

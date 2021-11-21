@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.CheckComboBox?>
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.PizzakController">
+    <children>
+        <TabPane layoutX="7.0" prefHeight="922.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab fx:id="kisPizzak" text="Kicsik">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="kispizzakTw" layoutY="44.0" prefHeight="350.0" prefWidth="919.0">
+                                    <columns>
+                                        <TableColumn fx:id="kispizzaFajta" prefWidth="132.0" text="Fajta"/>
+                                        <TableColumn fx:id="kispizzaAlap" prefWidth="175.0" text="Alap"/>
+                                        <TableColumn fx:id="kispizzaOsszetevok" prefWidth="492.0" text="Összetevők"/>
+                                        <TableColumn fx:id="kispizzaAr" prefWidth="119.0" text="Ár"/>
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="191.0" layoutY="417.0"
+                                       text="Új fajta pizza hozzáadása. Az alapot és az összetevőket ki kell választani a listából"/>
+                                <TextField fx:id="newkispizzaFajta" layoutX="72.0" layoutY="479.0" promptText="Fajta"/>
+                                <TextField fx:id="newkispizzaAr" layoutX="664.0" layoutY="479.0" promptText="Ár"/>
+                                <Button fx:id="addkispizzaBtn" layoutX="878.0" layoutY="479.0" mnemonicParsing="false"
+                                        text="Hozzáad"/>
+                                <CheckComboBox fx:id="newkispizzaOsszetevok" layoutX="486.0" layoutY="479.0"
+                                               prefWidth="150.0"/>
+                                <TextField fx:id="newkispizzaAlap" layoutX="278.0" layoutY="479.0" prefWidth="150.0"
+                                           promptText="Alap"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="hu.banattila.beadando_prog.PizzakController"
-            prefHeight="400.0" prefWidth="600.0">
-
+                <Tab fx:id="kozepesPizzak" text="Közepesek">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="kozepespizzakTw" layoutY="44.0" prefHeight="350.0" prefWidth="919.0">
+                                    <columns>
+                                        <TableColumn fx:id="kozepespizzaFajta" prefWidth="132.0" text="Fajta"/>
+                                        <TableColumn fx:id="kozepespizzaAlap" prefWidth="175.0" text="Alap"/>
+                                        <TableColumn fx:id="kozepespizzaOsszetevok" prefWidth="492.0"
+                                                     text="Összetevők"/>
+                                        <TableColumn fx:id="kozepespizzaAr" prefWidth="119.0" text="Ár"/>
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="191.0" layoutY="417.0"
+                                       text="Új fajta pizza hozzáadása. Az alapot és az összetevőket ki kell választani a listából"/>
+                                <TextField fx:id="newkozepespizzaFajta" layoutX="72.0" layoutY="479.0"
+                                           promptText="Fajta"/>
+                                <TextField fx:id="newkozepespizzaAr" layoutX="664.0" layoutY="479.0" promptText="Ár"/>
+                                <Button fx:id="addkozepespizzaBtn" layoutX="878.0" layoutY="479.0"
+                                        mnemonicParsing="false" text="Hozzáad"/>
+                                <CheckComboBox fx:id="newkozepespizzaOsszetevok" layoutX="486.0" layoutY="479.0"
+                                               prefWidth="150.0"/>
+                                <TextField fx:id="newkozepespizzaAlap" layoutX="278.0" layoutY="479.0" prefWidth="150.0"
+                                           promptText="Alap"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="csaladiPizzak" text="Családi">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="csaladipizzakTw" layoutY="44.0" prefHeight="350.0" prefWidth="919.0">
+                                    <columns>
+                                        <TableColumn fx:id="csaladipizzaFajta" prefWidth="132.0" text="Fajta"/>
+                                        <TableColumn fx:id="csaladipizzaAlap" prefWidth="175.0" text="Alap"/>
+                                        <TableColumn fx:id="csaladipizzaOsszetevok" prefWidth="492.0"
+                                                     text="Összetevők"/>
+                                        <TableColumn fx:id="csaladipizzaAr" prefWidth="119.0" text="Ár"/>
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="191.0" layoutY="417.0"
+                                       text="Új fajta pizza hozzáadása. Az alapot és az összetevőket ki kell választani a listából"/>
+                                <TextField fx:id="newcsaladipizzaFajta" layoutX="72.0" layoutY="479.0"
+                                           promptText="Fajta"/>
+                                <TextField fx:id="newcsaladipizzaAr" layoutX="664.0" layoutY="479.0" promptText="Ár"/>
+                                <Button fx:id="addcsaladipizzaBtn" layoutX="878.0" layoutY="479.0"
+                                        mnemonicParsing="false" text="Hozzáad"/>
+                                <CheckComboBox fx:id="newcsaladipizzaOsszetevok" layoutX="486.0" layoutY="479.0"
+                                               prefWidth="150.0"/>
+                                <TextField fx:id="newcsaladipizzaAlap" layoutX="278.0" layoutY="479.0" prefWidth="150.0"
+                                           promptText="Alap"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>

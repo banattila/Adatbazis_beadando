@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Main extends Application {
     public static PizzeriaConnection pc;
+
     @Override
     public void start(Stage stage) throws IOException {
         pc = new PizzeriaConnection();

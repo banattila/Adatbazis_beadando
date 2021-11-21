@@ -1,7 +1,6 @@
 package hu.banattila.beadando_prog;
 
 import hu.banattila.beadando_prog.models.Feltet;
-import hu.banattila.beadando_prog.models.Ugyfel;
 import hu.banattila.beadando_prog.utils.MyAlert;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -65,20 +64,20 @@ public class FeltetekController implements Initializable {
     private Button decArBtn;
 
 
-    private void selectFeltetek(){
+    private void selectFeltetek() {
         ftw.setItems(FXCollections.observableArrayList(Main.pc.getFeltetek()));
     }
 
-    private void searchFeltetByMegnevezes(){
+    private void searchFeltetByMegnevezes() {
         String megnevezes = searchFeltet.getText();
         boolean ok = true;
 
-        if (megnevezes.isEmpty() ||  megnevezes.isBlank()){
+        if (megnevezes.isEmpty() || megnevezes.isBlank()) {
             new MyAlert("Hibás érték", "A megnevezés nem lehet ürese");
             ok = false;
         }
 
-        if (ok){
+        if (ok) {
             Feltet feltet = Main.pc.searchFeltetByMegnevezes(megnevezes);
             searchResultMegnevezes.setText(feltet.getMegnevezes());
             searchResutlAr.setText(String.valueOf(feltet.getAr()));
@@ -86,22 +85,22 @@ public class FeltetekController implements Initializable {
         }
     }
 
-    private void insertFeltet(){
+    private void insertFeltet() {
         String megnevezes = addFeltetMegnevezes.getText();
         int ar = 0;
         boolean ok = true;
-        if (megnevezes.isEmpty() || megnevezes.isBlank()){
+        if (megnevezes.isEmpty() || megnevezes.isBlank()) {
             new MyAlert("Hibás érték", "A megnevezés nem lehet ürese");
             ok = false;
         }
-        if(addFeltetAr.getText().isEmpty() || addFeltetAr.getText().isBlank()){
+        if (addFeltetAr.getText().isEmpty() || addFeltetAr.getText().isBlank()) {
             ok = false;
             new MyAlert("Hibás érték", "Az ár nem lehet ürese");
         } else {
             ar = Integer.parseInt(addFeltetAr.getText());
         }
 
-        if(ok){
+        if (ok) {
             Main.pc.insertFeltet(megnevezes, ar);
             selectFeltetek();
             addFeltetMegnevezes.setText("");
@@ -109,12 +108,12 @@ public class FeltetekController implements Initializable {
         }
     }
 
-    private void deleteFeltet(){
-        if (!ftw.getSelectionModel().getSelectedItems().isEmpty()){
+    private void deleteFeltet() {
+        if (!ftw.getSelectionModel().getSelectedItems().isEmpty()) {
             TableView.TableViewSelectionModel sm = ftw.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
             ObservableList os = sm.getSelectedItems();
-            Feltet feltet= (Feltet) os.get(0);
+            Feltet feltet = (Feltet) os.get(0);
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("TÖRLÉS");
             a.setContentText("Biztosan törlöd?");
@@ -130,31 +129,31 @@ public class FeltetekController implements Initializable {
         }
     }
 
-    private void incAr(){
+    private void incAr() {
         MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres emelés",
                 Main.pc.incFeltetAr(), Main.pc.getFeltetek(), ftw);
     }
 
-    private void decAr(){
+    private void decAr() {
         MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres csökkentés",
                 Main.pc.decFeltetAr(), Main.pc.getFeltetek(), ftw);
     }
 
-    private void updateFeltetArByMegnevezes(){
+    private void updateFeltetArByMegnevezes() {
         boolean ok = true;
         int ar;
         String megnevezes = updateFeltetMegnezes.getText();
-        if (updateFeltetAr.getText().isBlank() || updateFeltetAr.getText().isEmpty()){
+        if (updateFeltetAr.getText().isBlank() || updateFeltetAr.getText().isEmpty()) {
             ok = false;
             new MyAlert("Hibás érték", "Az ár nem lehet ürese");
         }
 
-        if (megnevezes.isEmpty() || megnevezes.isBlank()){
+        if (megnevezes.isEmpty() || megnevezes.isBlank()) {
             ok = false;
             new MyAlert("Hibás érték", "Az ár nem lehet ürese");
         }
 
-        if (ok){
+        if (ok) {
             ar = Integer.parseInt(updateFeltetAr.getText());
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres frissítés",
                     Main.pc.updateFeltetArByMegnevezes(megnevezes, ar), Main.pc.getFeltetek(), ftw);

@@ -1,6 +1,6 @@
 package hu.banattila.beadando_prog.models;
 
-public class PizzaAlap{
+public class PizzaAlap {
 
     private String fajta;
     private String pizzaAlapja;

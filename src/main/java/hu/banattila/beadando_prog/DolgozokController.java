@@ -2,7 +2,6 @@ package hu.banattila.beadando_prog;
 
 import hu.banattila.beadando_prog.models.Dolgozo;
 import hu.banattila.beadando_prog.models.Futar;
-import hu.banattila.beadando_prog.models.Ugyfel;
 import hu.banattila.beadando_prog.utils.MyAlert;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -105,12 +104,12 @@ public class DolgozokController implements Initializable {
             valid = false;
 
         } else {
-            if (adoszam.length() != 10){
+            if (adoszam.length() != 10) {
                 new MyAlert("Hibás érték", "Az adószám csak számokból állhat és 10 karakter hosszónak kell lennie");
                 valid = false;
             } else {
                 for (int i = 0; i < adoszam.length(); i++) {
-                    if (!Character.isDigit(adoszam.charAt(i))){
+                    if (!Character.isDigit(adoszam.charAt(i))) {
                         new MyAlert("Hibás érték", "Az adószám csak számokból állhat és 10 karakter hosszónak kell lennie");
                         valid = false;
                         break;
@@ -128,7 +127,7 @@ public class DolgozokController implements Initializable {
             valid = false;
         }
 
-        if (valid){
+        if (valid) {
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás",
                     Main.pc.insertDolgozo(adoszam, vnev, knev), Main.pc.getDolgozok(), dolgozokTable);
             dolgozokTable.setItems(FXCollections.observableArrayList(Main.pc.getDolgozok()));
@@ -150,12 +149,12 @@ public class DolgozokController implements Initializable {
             valid = false;
 
         } else {
-            if (adoszam.length() != 10){
+            if (adoszam.length() != 10) {
                 new MyAlert("Hibás érték", "Az adószám csak számokból állhat és 10 karakter hosszónak kell lennie");
                 valid = false;
             } else {
                 for (int i = 0; i < adoszam.length(); i++) {
-                    if (!Character.isDigit(adoszam.charAt(i))){
+                    if (!Character.isDigit(adoszam.charAt(i))) {
                         new MyAlert("Hibás érték", "Az adószám csak számokból állhat és 10 karakter hosszónak kell lennie");
                         valid = false;
                         break;
@@ -172,7 +171,7 @@ public class DolgozokController implements Initializable {
             new MyAlert("Hibás érték", "Az keresztnév nem lehet üres");
             valid = false;
         }
-        if (valid){
+        if (valid) {
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás",
                     Main.pc.insertFutarok(adoszam, vnev, knev), Main.pc.getFutarok(), futarokTable);
             futarokTable.setItems(FXCollections.observableArrayList(Main.pc.getFutarok()));
@@ -210,7 +209,7 @@ public class DolgozokController implements Initializable {
         }
     }
 
-    private void updateDolgozo(){
+    private void updateDolgozo() {
         if (!dolgozokTable.getSelectionModel().getSelectedItems().isEmpty()) {
             TableView.TableViewSelectionModel sm = dolgozokTable.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
@@ -220,10 +219,10 @@ public class DolgozokController implements Initializable {
             String vnev = updateDolgozoVNev.getText();
             String knev = updateDolgozoKNev.getText();
 
-            if (vnev.isBlank() || vnev.isEmpty()){
+            if (vnev.isBlank() || vnev.isEmpty()) {
                 vnev = dolgozo.getVezeteknev();
             }
-            if (knev.isEmpty() || knev.isBlank()){
+            if (knev.isEmpty() || knev.isBlank()) {
                 knev = dolgozo.getKeresztnev();
             }
             MyAlert.alertWithAction(a, "Sikeres frissítés",
@@ -238,7 +237,7 @@ public class DolgozokController implements Initializable {
         }
     }
 
-    private void updateFutarData(){
+    private void updateFutarData() {
         if (!futarokTable.getSelectionModel().getSelectedItems().isEmpty()) {
             TableView.TableViewSelectionModel sm = futarokTable.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
@@ -248,10 +247,10 @@ public class DolgozokController implements Initializable {
             String vnev = updateFutarVNev.getText();
             String knev = updateFutarKNev.getText();
 
-            if (vnev.isBlank() || vnev.isEmpty()){
+            if (vnev.isBlank() || vnev.isEmpty()) {
                 vnev = dolgozo.getVezeteknev();
             }
-            if (knev.isEmpty() || knev.isBlank()){
+            if (knev.isEmpty() || knev.isBlank()) {
                 knev = dolgozo.getKeresztnev();
             }
             MyAlert.alertWithAction(a, "Sikeres frissítés",
@@ -265,7 +264,6 @@ public class DolgozokController implements Initializable {
             a.show();
         }
     }
-
 
 
     private void updateFutarElerheto() {

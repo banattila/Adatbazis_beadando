@@ -5,16 +5,19 @@ public class Pizza {
     private String fajta;
     private int meret = 24;
     private int ar;
+    private String alap;
+    private String osszetevok = "";
 
-    public Pizza(String fajta, int ar){
+    public Pizza(String fajta, int ar) {
         this.fajta = fajta;
         this.ar = ar;
     }
 
-    public Pizza(String fajta, int meret, int ar){
+    public Pizza(String fajta, int meret, int ar, String alap) {
         this.fajta = fajta;
         this.meret = meret;
         this.ar = ar;
+        this.alap = alap;
     }
 
     public String getFajta() {
@@ -39,5 +42,21 @@ public class Pizza {
 
     public void setAr(int ar) {
         this.ar = ar;
+    }
+
+    public String getAlap() {
+        return alap;
+    }
+
+    public String getOsszetevok() {
+        return osszetevok;
+    }
+
+    public void addOsszetevo(String osszetevo) {
+        if (osszetevok.isEmpty()) {
+            osszetevok += osszetevo;
+        } else {
+            osszetevok += ", " + osszetevo;
+        }
     }
 }
