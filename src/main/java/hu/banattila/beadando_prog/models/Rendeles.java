@@ -1,7 +1,6 @@
 package hu.banattila.beadando_prog.models;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Rendeles {
 
@@ -17,7 +16,7 @@ public class Rendeles {
 
 
     public Rendeles(LocalDateTime rendelesIdeje, String email, String fajta, int meret,
-                    int rendeltMennyiseg, int irsz,String telepules, String utca, int hazszam, String adoszam,
+                    int rendeltMennyiseg, int irsz, String telepules, String utca, int hazszam, String adoszam,
                     int fizetendo) {
         this.rendelesIdeje = rendelesIdeje;
         this.email = email;
@@ -30,11 +29,11 @@ public class Rendeles {
     }
 
     public String getRendelesIdeje() {
-        String res =  rendelesIdeje.toString();
+        String res = rendelesIdeje.toString();
         return res.replace("T", " ");
     }
 
-    public int getFizetendo(){
+    public int getFizetendo() {
         return fizetendo;
     }
 
@@ -54,7 +53,7 @@ public class Rendeles {
         return rendeltMennyiseg;
     }
 
-    public String getCim(){
+    public String getCim() {
         return cim;
     }
 

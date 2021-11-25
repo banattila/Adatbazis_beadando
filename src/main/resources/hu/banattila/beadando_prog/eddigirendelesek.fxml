@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.RendelesekController">
-   <children>
-      <TableView fx:id="tw" layoutX="7.0" layoutY="7.0" prefHeight="415.0" prefWidth="1018.0">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.RendelesekController">
+    <TableView fx:id="tw" layoutX="7.0" layoutY="7.0" prefHeight="415.0" prefWidth="1018.0">
         <columns>
-          <TableColumn fx:id="ugyfelmail" prefWidth="188.0" text="Ügyfél email címe" />
-          <TableColumn fx:id="rendeltPizza" minWidth="0.0" prefWidth="109.0" text="Rendelt pizza" />
-            <TableColumn fx:id="rendeltMeret" prefWidth="77.0" text="Méret" />
-            <TableColumn fx:id="rendeltMennyiseg" prefWidth="162.0" text="Mennyiség" />
-            <TableColumn fx:id="rendeltCim" prefWidth="148.0" text="Cím" />
-            <TableColumn fx:id="rendelesIdeje" prefWidth="135.0" text="Rendelés Ideje" />
-            <TableColumn fx:id="rendeltFutarAzonosito" prefWidth="103.0" text="Futár azon" />
-            <TableColumn fx:id="rendelesFizetendo" prefWidth="95.0" text="Fizetendő" />
+            <TableColumn fx:id="ugyfelmail" prefWidth="188.0" text="Ügyfél email címe"/>
+            <TableColumn fx:id="rendeltPizza" minWidth="0.0" prefWidth="109.0" text="Rendelt pizza"/>
+            <TableColumn fx:id="rendeltMeret" prefWidth="77.0" text="Méret"/>
+            <TableColumn fx:id="rendeltMennyiseg" prefWidth="162.0" text="Mennyiség"/>
+            <TableColumn fx:id="rendeltCim" prefWidth="148.0" text="Cím"/>
+            <TableColumn fx:id="rendelesIdeje" prefWidth="135.0" text="Rendelés Ideje"/>
+            <TableColumn fx:id="rendeltFutarAzonosito" prefWidth="103.0" text="Futár azon"/>
+            <TableColumn fx:id="rendelesFizetendo" prefWidth="95.0" text="Fizetendő"/>
         </columns>
-      </TableView>
-      <Label layoutX="423.0" layoutY="482.0" text="Új rendelés felvétele" />
-      <Label layoutX="133.0" layoutY="513.0" text="Ügyfél adatai" />
-      <Label layoutX="447.0" layoutY="513.0" text="Pizza" />
-      <Label layoutX="807.0" layoutY="513.0" text="Cím" />
-      <TextField fx:id="ugyfelEmail" layoutX="91.0" layoutY="551.0" promptText="Email" />
-      <TextField fx:id="ugyfelVnev" layoutX="91.0" layoutY="598.0" promptText="Vezetéknév" />
-      <TextField fx:id="ugyfelKnev" layoutX="91.0" layoutY="646.0" promptText="Keresztnév" />
-      <ComboBox fx:id="rendeltPizzaFajta" layoutX="406.0" layoutY="545.0" prefWidth="150.0" promptText="Válassz" />
-      <TextField fx:id="rendeltMenny" layoutX="396.0" layoutY="598.0" promptText="Mennyiség" />
-   </children>
+    </TableView>
+    <Label layoutX="423.0" layoutY="482.0" text="Új rendelés felvétele"/>
+    <Label layoutX="133.0" layoutY="513.0" text="Ügyfél adatai"/>
+    <Label layoutX="447.0" layoutY="513.0" text="Pizza"/>
+    <Label layoutX="807.0" layoutY="513.0" text="Cím"/>
+    <TextField fx:id="ugyfelEmail" layoutX="91.0" layoutY="551.0" promptText="Email"/>
+    <TextField fx:id="ugyfelVnev" layoutX="91.0" layoutY="598.0" promptText="Vezetéknév"/>
+    <TextField fx:id="ugyfelKnev" layoutX="91.0" layoutY="646.0" promptText="Keresztnév"/>
+    <ComboBox fx:id="rendeltPizzaFajta" layoutX="406.0" layoutY="545.0" prefWidth="150.0" promptText="Válassz"/>
+    <TextField fx:id="rendeltMenny" layoutX="396.0" layoutY="598.0" promptText="Mennyiség"/>
 </AnchorPane>

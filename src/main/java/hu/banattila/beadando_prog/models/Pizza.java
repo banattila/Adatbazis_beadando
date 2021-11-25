@@ -2,8 +2,8 @@ package hu.banattila.beadando_prog.models;
 
 public class Pizza {
 
-    private String fajta;
-    private int meret = 24;
+    private final String fajta;
+    private int meret;
     private int ar;
     private String alap;
     private String osszetevok = "";
@@ -24,24 +24,8 @@ public class Pizza {
         return fajta;
     }
 
-    public void setFajta(String fajta) {
-        this.fajta = fajta;
-    }
-
-    public int getMeret() {
-        return meret;
-    }
-
-    public void setMeret(int meret) {
-        this.meret = meret;
-    }
-
     public int getAr() {
         return ar;
-    }
-
-    public void setAr(int ar) {
-        this.ar = ar;
     }
 
     public String getAlap() {

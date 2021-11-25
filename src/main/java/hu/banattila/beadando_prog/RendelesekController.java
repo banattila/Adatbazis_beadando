@@ -1,8 +1,9 @@
 package hu.banattila.beadando_prog;
 
 import hu.banattila.beadando_prog.models.Rendeles;
-import hu.banattila.beadando_prog.models.Ugyfel;
 import hu.banattila.beadando_prog.utils.MyAlert;
+import hu.banattila.beadando_prog.utils.PizzaConnection;
+import hu.banattila.beadando_prog.utils.RendelesekConnection;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -12,17 +13,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class RendelesekController implements Initializable {
 
+    private RendelesekConnection rendelesekConnection;
+    private PizzaConnection pizzaConnection;
+
     @FXML
     private TableView<Rendeles> tw;
-
-    private void setTableItems() {
-        tw.setItems(FXCollections.observableArrayList(Main.pc.getRendelesek()));
-    }
 
     @FXML
     private TableColumn<Rendeles, String> ugyfelmail;
@@ -49,7 +50,6 @@ public class RendelesekController implements Initializable {
     private TableColumn<Rendeles, Integer> rendelesFizetendo;
 
     private void setColumns() {
-        setTableItems();
         rendelesIdeje.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getRendelesIdeje()));
         rendeltPizza.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getFajta()));
         rendeltMeret.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getMeret()).asObject());
@@ -90,16 +90,19 @@ public class RendelesekController implements Initializable {
     @FXML
     private ComboBox<String> rendeltPizzaFajta;
 
-    private void setRendeltFajta(){
+    private void setRendeltFajtaEsMeret() {
         rendeltPizzaFajta.setItems(
-                FXCollections.observableArrayList(Main.pc.pizzaFajtak()));
+                FXCollections.observableArrayList(pizzaConnection.pizzaFajtak()));
+        rendeltmeret.setItems(FXCollections.observableArrayList("Kicsi", "Közepes", "Családi"));
+        SingleSelectionModel<String> sm = rendeltmeret.getSelectionModel();
+        sm.select(2);
     }
 
     @FXML
     private TextField rendeltMenny;
 
     @FXML
-    private TextField rendeltmeret;
+    private ComboBox<String> rendeltmeret;
 
     @FXML
     private TextField irsz;
@@ -116,7 +119,7 @@ public class RendelesekController implements Initializable {
     @FXML
     private Button insertRendeles;
 
-    private boolean checkCimDataFields(){
+    private boolean checkCimDataFields() {
         boolean res = true;
         if (irsz.getText().isEmpty() || irsz.getText().isBlank()) {
             res = false;
@@ -139,7 +142,7 @@ public class RendelesekController implements Initializable {
         return res;
     }
 
-    private boolean checkRendeltFeltetelek(){
+    private boolean checkRendeltFeltetelek() {
         boolean res = true;
         if (rendeltPizzaFajta.getSelectionModel().getSelectedItem().isEmpty()) {
             res = false;
@@ -162,12 +165,6 @@ public class RendelesekController implements Initializable {
             }
         });
 
-        rendeltmeret.textProperty().addListener((observable, oldValue, newValue) ->{
-            if (!newValue.matches("\\d*") || newValue.length() > 2) {
-                rendeltmeret.setText(oldValue);
-            }
-        });
-
         irsz.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*") || newValue.length() > 4) {
                 irsz.setText(oldValue);
@@ -181,30 +178,64 @@ public class RendelesekController implements Initializable {
         });
     }
 
-    private void insertRendeles(){
-        System.out.println(rendeltPizzaFajta.getSelectionModel().getSelectedItem());
-        if (checkUgyfelData() && checkCimDataFields() && checkRendeltFeltetelek()){
+    private void insertRendeles() {
+        if (checkUgyfelData() && checkCimDataFields() && checkRendeltFeltetelek()) {
+            int meret = 0;
+            String rendeltM = rendeltmeret.getValue();
+
+            switch (rendeltM){
+                case "Kicsi": meret = 26; break;
+                case "Közepes": meret = 30; break;
+                default: meret = 50;
+            }
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás",
-                    Main.pc.insertRendeles(
+                    rendelesekConnection.insertRendeles(
                             ugyfelEmail.getText(),
                             ugyfelVnev.getText(),
                             ugyfelKnev.getText(),
                             rendeltPizzaFajta.getSelectionModel().getSelectedItem(),
-                            Integer.parseInt(rendeltmeret.getText()),
+                            meret,
                             Integer.parseInt(rendeltMenny.getText()),
                             Integer.parseInt(irsz.getText()),
                             telepules.getText(),
                             utca.getText(),
                             Integer.parseInt(hazszam.getText())
-                            ), Main.pc.getRendelesek(), tw);
+                    ), rendelesekConnection.getRendelesek(), tw);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        rendelesekConnection = new RendelesekConnection();
+        pizzaConnection = new PizzaConnection();
+        Thread t = new Thread(() -> {
+            Rendeles rendeles = null;
+            TableView.TableViewSelectionModel<Rendeles> sm = null;
+            while (true){
+                List<Rendeles> rendelesek = rendelesekConnection.getRendelesek();
+                if (!tw.getSelectionModel().getSelectedItems().isEmpty()){
+                    sm = tw.getSelectionModel();
+                    sm.setSelectionMode(SelectionMode.SINGLE);
+                    ObservableList<Rendeles> os = sm.getSelectedItems();
+                    rendeles = os.get(0);
+                }
+                tw.setItems(FXCollections.observableArrayList(rendelesek));
+                if (sm != null && rendeles != null){
+                    for (int i = 0; i < rendelesek.size(); ++i){
+                        if (rendelesek.get(i).getRendelesIdeje().equals(rendeles.getRendelesIdeje())){
+                            sm.select(i);
+                        }
+                    }
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {}
+            }
+        });
         setColumns();
         setNumberFields();
-        setRendeltFajta();
+        setRendeltFajtaEsMeret();
         insertRendeles.setOnAction(e -> insertRendeles());
+        t.start();
     }
 }

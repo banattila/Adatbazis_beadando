@@ -1,34 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.FeltetekController">
-    <children>
-        <TableView fx:id="ftw" prefHeight="513.0" prefWidth="481.0">
-            <columns>
-                <TableColumn fx:id="feltetMegnevezes" prefWidth="293.0" text="Megnevezés"/>
-                <TableColumn fx:id="feltetAr" prefWidth="179.0" text="Ár"/>
-            </columns>
-        </TableView>
-        <TextField fx:id="addFeltetMegnevezes" layoutX="29.0" layoutY="611.0" promptText="Megnevezés"/>
-        <TextField fx:id="addFeltetAr" layoutX="266.0" layoutY="611.0" promptText="Ár"/>
-        <Button fx:id="addFeltet" layoutX="498.0" layoutY="611.0" mnemonicParsing="false" text="Hozzáad"/>
-        <Button fx:id="deleteFeltet" layoutX="512.0" layoutY="33.0" mnemonicParsing="false"
-                text="Kijelölt elem törlése"/>
-        <Button fx:id="updateFeltet" layoutX="888.0" layoutY="145.0" mnemonicParsing="false" text="Frissít"/>
-        <TextField fx:id="updateFeltetAr" layoutX="685.0" layoutY="145.0" promptText="Ár"/>
-        <Label layoutX="626.0" layoutY="99.0" text="Ár frissítése megnezeés alapján"/>
-        <Label layoutX="132.0" layoutY="542.0" text="Új feltét hozzáadása"/>
-        <Label layoutX="615.0" layoutY="203.0" text="Feltét keresése megnezeés alapján"/>
-        <TextField fx:id="searchFeltet" layoutX="615.0" layoutY="245.0" promptText="Megnevezés"/>
-        <Button fx:id="searchFeltetBtn" layoutX="889.0" layoutY="245.0" mnemonicParsing="false" text="Keres"/>
-        <TextField fx:id="updateFeltetMegnezes" layoutX="501.0" layoutY="145.0" promptText="Megnevezés"/>
-        <TextField fx:id="searchResultMegnevezes" layoutX="553.0" layoutY="300.0" promptText="Megnevezés"/>
-        <TextField fx:id="searchResutlAr" layoutX="737.0" layoutY="300.0" promptText="Ár"/>
-        <Button fx:id="incArBtn" layoutX="660.0" layoutY="411.0" mnemonicParsing="false" text="Emel"/>
-        <Label layoutX="572.0" layoutY="376.0" text="Minden feltét árának emelése 10%-al."/>
-        <Button fx:id="decArBtn" layoutX="646.0" layoutY="489.0" mnemonicParsing="false" text="Csökkent"/>
-        <Label layoutX="559.0" layoutY="462.0" text="Minden feltét árának csökkentése 10%-al."/>
-    </children>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: bisque;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hu.banattila.beadando_prog.FeltetekController">
+    <TableView fx:id="ftw" prefHeight="513.0" prefWidth="481.0">
+        <columns>
+            <TableColumn fx:id="feltetMegnevezes" prefWidth="293.0" text="Megnevezés"/>
+            <TableColumn fx:id="feltetAr" prefWidth="186.0" text="Ár"/>
+        </columns>
+    </TableView>
+    <AnchorPane layoutX="481.0" prefHeight="601.0" prefWidth="542.0" style="-fx-background-color: antiquewhite;">
+        <Button fx:id="deleteFeltet" layoutX="77.0" layoutY="33.0" mnemonicParsing="false"
+                text="Kijelölt elem törlése">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label layoutX="173.0" layoutY="97.0" text="Ár frissítése megnezeés alapján">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="updateFeltetMegnezes" layoutX="236.0" layoutY="135.0" promptText="Megnevezés"/>
+        <TextField fx:id="updateFeltetAr" layoutX="236.0" layoutY="175.0" promptText="Ár"/>
+        <Button fx:id="updateFeltet" layoutX="279.0" layoutY="218.0" mnemonicParsing="false" text="Frissít">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label layoutX="125.0" layoutY="277.0" text="Feltét keresése megnezeés alapján">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="searchFeltet" layoutX="124.0" layoutY="320.0" promptText="Megnevezés"/>
+        <TextField fx:id="searchResultMegnevezes" layoutX="124.0" layoutY="365.0" promptText="Megnevezés"/>
+        <Button fx:id="searchFeltetBtn" layoutX="366.0" layoutY="313.0" mnemonicParsing="false" text="Keres">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <TextField fx:id="searchResutlAr" layoutX="334.0" layoutY="365.0" promptText="Ár"/>
+        <Label layoutX="218.0" layoutY="419.0" text="Új feltét hozzáadása">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Button fx:id="addFeltet" layoutX="276.0" layoutY="547.0" mnemonicParsing="false" text="Hozzáad">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <TextField fx:id="addFeltetMegnevezes" layoutX="255.0" layoutY="455.0" promptText="Megnevezés"/>
+        <TextField fx:id="addFeltetAr" layoutX="247.0" layoutY="494.0" promptText="Ár"/>
+    </AnchorPane>
+    <AnchorPane layoutX="-3.0" layoutY="601.0" prefHeight="168.0" prefWidth="714.0"
+                style="-fx-background-color: antiquewhite;">
+        <Label layoutX="96.0" layoutY="25.0" text="Feltétek árának emelése 10%-al.">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Button fx:id="incArBtn" layoutX="544.0" layoutY="18.0" mnemonicParsing="false" text="Emel">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label layoutX="96.0" layoutY="107.0" text="Feltétek árának csökkentése 10%-al.">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Button fx:id="decArBtn" layoutX="522.0" layoutY="100.0" mnemonicParsing="false" text="Csökkent">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+    </AnchorPane>
 </AnchorPane>

@@ -10,6 +10,7 @@ module hu.banattila.beadando_prog {
 
     opens hu.banattila.beadando_prog to java.sql, javafx.fxml;
     exports hu.banattila.beadando_prog;
+    exports hu.banattila.beadando_prog.models;
     exports hu.banattila.beadando_prog.utils;
     opens hu.banattila.beadando_prog.utils to java.sql, javafx.fxml;
 }

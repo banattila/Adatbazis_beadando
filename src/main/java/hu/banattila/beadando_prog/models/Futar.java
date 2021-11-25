@@ -4,10 +4,6 @@ public class Futar extends Dolgozo {
 
     private String elerheto = "Nem";
 
-    public Futar(String adoszam, String vnev, String knev) {
-        super(adoszam, vnev, knev);
-    }
-
     public Futar(String adoszam, String vnev, String knev, boolean elerheto) {
         super(adoszam, vnev, knev);
         setElerheto(elerheto);

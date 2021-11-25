@@ -1,7 +1,9 @@
 package hu.banattila.beadando_prog;
 
 import hu.banattila.beadando_prog.models.Dolgozo;
+import hu.banattila.beadando_prog.models.Feltet;
 import hu.banattila.beadando_prog.models.Futar;
+import hu.banattila.beadando_prog.utils.DolgozokConnection;
 import hu.banattila.beadando_prog.utils.MyAlert;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,15 +13,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DolgozokController implements Initializable {
 
-    @FXML
-    protected TableView<Dolgozo> dolgozokTable;
+    private DolgozokConnection dc;
 
     @FXML
-    private TableView<Futar> futarokTable;
+    public TableView<Dolgozo> dolgozokTable;
+
+    @FXML
+    public TableView<Futar> futarokTable;
 
     @FXML
     private TableColumn<Dolgozo, String> dolgozokAdoszam;
@@ -130,8 +135,8 @@ public class DolgozokController implements Initializable {
 
         if (valid) {
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás",
-                    Main.pc.insertDolgozo(adoszam, vnev, knev), Main.pc.getDolgozok(), dolgozokTable);
-            dolgozokTable.setItems(FXCollections.observableArrayList(Main.pc.getDolgozok()));
+                    dc.insertDolgozo(adoszam, vnev, knev), dc.getDolgozok(), dolgozokTable);
+            dolgozokTable.setItems(FXCollections.observableArrayList(dc.getDolgozok()));
             newAdoszamDolgozo.setText("");
             newVNevDolgozo.setText("");
             newKNevDolgozo.setText("");
@@ -174,8 +179,8 @@ public class DolgozokController implements Initializable {
         }
         if (valid) {
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás",
-                    Main.pc.insertFutarok(adoszam, vnev, knev), Main.pc.getFutarok(), futarokTable);
-            futarokTable.setItems(FXCollections.observableArrayList(Main.pc.getFutarok()));
+                    dc.insertFutarok(adoszam, vnev, knev), dc.getFutarok(), futarokTable);
+            futarokTable.setItems(FXCollections.observableArrayList(dc.getFutarok()));
             newAdoszamFutar.setText("");
             newVNevFutar.setText("");
             newKNevFutar.setText("");
@@ -183,39 +188,39 @@ public class DolgozokController implements Initializable {
     }
 
     private void deleteDolgozo() {
-        TableView.TableViewSelectionModel sm = dolgozokTable.getSelectionModel();
+        TableView.TableViewSelectionModel<Dolgozo> sm = dolgozokTable.getSelectionModel();
         sm.setSelectionMode(SelectionMode.SINGLE);
-        ObservableList os = sm.getSelectedItems();
-        Dolgozo uf = (Dolgozo) os.get(0);
+        ObservableList<Dolgozo> os = sm.getSelectedItems();
+        Dolgozo uf = os.get(0);
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("TÖRLÉS");
         a.setContentText("Biztosan törlöd");
         if (a.showAndWait().get() == ButtonType.OK) {
-            MyAlert.alertWithAction(a, "Sikeres törlés", Main.pc.deleteDolgozo(uf.getAdoszam()),
-                    Main.pc.getDolgozok(), dolgozokTable);
+            MyAlert.alertWithAction(a, "Sikeres törlés", dc.deleteDolgozo(uf.getAdoszam()),
+                    dc.getDolgozok(), dolgozokTable);
         }
     }
 
     private void deleteFutarok() {
-        TableView.TableViewSelectionModel sm = futarokTable.getSelectionModel();
+        TableView.TableViewSelectionModel<Futar> sm = futarokTable.getSelectionModel();
         sm.setSelectionMode(SelectionMode.SINGLE);
-        ObservableList os = sm.getSelectedItems();
-        Futar uf = (Futar) os.get(0);
+        ObservableList<Futar> os = sm.getSelectedItems();
+        Futar uf = os.get(0);
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("TÖRLÉS");
         a.setContentText("Biztosan törlöd");
         if (a.showAndWait().get() == ButtonType.OK) {
-            MyAlert.alertWithAction(a, "Sikeres törlés", Main.pc.deleteFutarok(uf.getAdoszam()),
-                    Main.pc.getFutarok(), futarokTable);
+            MyAlert.alertWithAction(a, "Sikeres törlés", dc.deleteFutarok(uf.getAdoszam()),
+                    dc.getFutarok(), futarokTable);
         }
     }
 
     private void updateDolgozo() {
         if (!dolgozokTable.getSelectionModel().getSelectedItems().isEmpty()) {
-            TableView.TableViewSelectionModel sm = dolgozokTable.getSelectionModel();
+            TableView.TableViewSelectionModel<Dolgozo> sm = dolgozokTable.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
-            ObservableList os = sm.getSelectedItems();
-            Dolgozo dolgozo = (Dolgozo) os.get(0);
+            ObservableList<Dolgozo> os = sm.getSelectedItems();
+            Dolgozo dolgozo = os.get(0);
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             String vnev = updateDolgozoVNev.getText();
             String knev = updateDolgozoKNev.getText();
@@ -227,8 +232,8 @@ public class DolgozokController implements Initializable {
                 knev = dolgozo.getKeresztnev();
             }
             MyAlert.alertWithAction(a, "Sikeres frissítés",
-                    Main.pc.updateDolgozo(dolgozo.getAdoszam(), vnev, knev),
-                    Main.pc.getDolgozok(), dolgozokTable);
+                    dc.updateDolgozo(dolgozo.getAdoszam(), vnev, knev),
+                    dc.getDolgozok(), dolgozokTable);
 
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -240,23 +245,23 @@ public class DolgozokController implements Initializable {
 
     private void updateFutarData() {
         if (!futarokTable.getSelectionModel().getSelectedItems().isEmpty()) {
-            TableView.TableViewSelectionModel sm = futarokTable.getSelectionModel();
+            TableView.TableViewSelectionModel<Futar> sm = futarokTable.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
-            ObservableList os = sm.getSelectedItems();
-            Dolgozo dolgozo = (Dolgozo) os.get(0);
+            ObservableList<Futar> os = sm.getSelectedItems();
+            Futar futar = os.get(0);
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             String vnev = updateFutarVNev.getText();
             String knev = updateFutarKNev.getText();
 
             if (vnev.isBlank() || vnev.isEmpty()) {
-                vnev = dolgozo.getVezeteknev();
+                vnev = futar.getVezeteknev();
             }
             if (knev.isEmpty() || knev.isBlank()) {
-                knev = dolgozo.getKeresztnev();
+                knev = futar.getKeresztnev();
             }
             MyAlert.alertWithAction(a, "Sikeres frissítés",
-                    Main.pc.updateDolgozo(dolgozo.getAdoszam(), vnev, knev),
-                    Main.pc.getFutarok(), futarokTable);
+                    dc.updateDolgozo(futar.getAdoszam(), vnev, knev),
+                    dc.getFutarok(), futarokTable);
 
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -269,13 +274,13 @@ public class DolgozokController implements Initializable {
 
     private void updateFutarElerheto() {
         if (!futarokTable.getSelectionModel().getSelectedItems().isEmpty()) {
-            TableView.TableViewSelectionModel sm = futarokTable.getSelectionModel();
+            TableView.TableViewSelectionModel<Futar> sm = futarokTable.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
-            ObservableList os = sm.getSelectedItems();
-            Futar f = (Futar) os.get(0);
+            ObservableList<Futar> os = sm.getSelectedItems();
+            Futar f = os.get(0);
             Alert a = new Alert(Alert.AlertType.INFORMATION);
-            MyAlert.alertWithAction(a, "Sikeres frissítés", Main.pc.updateFutar(f.getAdoszam()),
-                    Main.pc.getFutarok(), futarokTable);
+            MyAlert.alertWithAction(a, "Sikeres frissítés", dc.updateFutar(f.getAdoszam()),
+                    dc.getFutarok(), futarokTable);
 
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -288,6 +293,52 @@ public class DolgozokController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        dc = new DolgozokConnection();
+        Thread t = new Thread(() -> {
+            Futar f = null;
+            Dolgozo d = null;
+            TableView.TableViewSelectionModel<Futar> sm = null;
+            TableView.TableViewSelectionModel<Dolgozo> smd = null;
+            while (true){
+                List<Futar> futarok = dc.getFutarok();
+                List<Dolgozo> dolgozok = dc.getDolgozok();
+
+                //futarok
+                if (!futarokTable.getSelectionModel().getSelectedItems().isEmpty()){
+                    sm = futarokTable.getSelectionModel();
+                    sm.setSelectionMode(SelectionMode.SINGLE);
+                    ObservableList<Futar> os = sm.getSelectedItems();
+                    f = os.get(0);
+                }
+                futarokTable.setItems(FXCollections.observableArrayList(futarok));
+                if (sm != null && f != null){
+                    for (int i = 0; i < futarok.size(); ++i){
+                        if (futarok.get(i).getAdoszam().equals(f.getAdoszam())){
+                            sm.select(i);
+                        }
+                    }
+                }
+
+                //dolgozok
+                if (!dolgozokTable.getSelectionModel().getSelectedItems().isEmpty()){
+                    smd = dolgozokTable.getSelectionModel();
+                    smd.setSelectionMode(SelectionMode.SINGLE);
+                    ObservableList<Dolgozo> os = smd.getSelectedItems();
+                    d = os.get(0);
+                }
+                dolgozokTable.setItems(FXCollections.observableArrayList(dolgozok));
+                if (smd != null && d != null){
+                    for (int i = 0; i < futarok.size(); ++i){
+                        if (dolgozok.get(i).getAdoszam().equals(d.getAdoszam())){
+                            smd.select(i);
+                        }
+                    }
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {}
+            }
+        });
         addDolgozo.setOnAction(e -> addNewDolgozo());
         addFutar.setOnAction(e -> addNewFutar());
         deleteDolgozo.setOnAction(e -> deleteDolgozo());
@@ -295,8 +346,8 @@ public class DolgozokController implements Initializable {
         updateFutarWorking.setOnAction(e -> updateFutarElerheto());
         updateDolgozo.setOnAction(e -> updateDolgozo());
         updateFutarData.setOnAction(e -> updateFutarData());
-        dolgozokTable.setItems(FXCollections.observableArrayList(Main.pc.getDolgozok()));
-        futarokTable.setItems(FXCollections.observableArrayList(Main.pc.getFutarok()));
+        dolgozokTable.setItems(FXCollections.observableArrayList(dc.getDolgozok()));
+        futarokTable.setItems(FXCollections.observableArrayList(dc.getFutarok()));
         dolgozokAdoszam.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getAdoszam()));
         dolgozokVNev.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getVezeteknev()));
         dolgozokKNev.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getKeresztnev()));
@@ -305,6 +356,7 @@ public class DolgozokController implements Initializable {
         futarokVNev.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getVezeteknev()));
         futarokKNev.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getKeresztnev()));
         futarokDolgozik.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getElerheto()));
+        t.start();
 
     }
 }

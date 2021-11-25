@@ -7,35 +7,67 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.RendelesekController">
-   <children>
-      <TableView fx:id="tw" layoutX="7.0" layoutY="7.0" prefHeight="415.0" prefWidth="1018.0">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.RendelesekController">
+    <TableView fx:id="tw" layoutX="-1.0" layoutY="-6.0" prefHeight="388.0" prefWidth="1026.0">
         <columns>
-          <TableColumn fx:id="ugyfelmail" prefWidth="188.0" text="Ügyfél email címe" />
-          <TableColumn fx:id="rendeltPizza" minWidth="0.0" prefWidth="134.0" text="Rendelt pizza" />
-            <TableColumn fx:id="rendeltMeret" prefWidth="52.0" text="Méret" />
-            <TableColumn fx:id="rendeltMennyiseg" prefWidth="86.0" text="Mennyiség" />
-            <TableColumn fx:id="rendeltCim" prefWidth="200.0" text="Cím" />
-            <TableColumn fx:id="rendelesIdeje" prefWidth="161.0" text="Rendelés Ideje" />
-            <TableColumn fx:id="rendeltFutarAzonosito" prefWidth="108.0" text="Futár azon" />
-            <TableColumn fx:id="rendelesFizetendo" prefWidth="91.0" text="Fizetendő" />
+            <TableColumn fx:id="ugyfelmail" prefWidth="188.0" text="Ügyfél email címe"/>
+            <TableColumn fx:id="rendeltPizza" minWidth="0.0" prefWidth="134.0" text="Rendelt pizza"/>
+            <TableColumn fx:id="rendeltMeret" prefWidth="52.0" text="Méret"/>
+            <TableColumn fx:id="rendeltMennyiseg" prefWidth="86.0" text="Mennyiség"/>
+            <TableColumn fx:id="rendeltCim" prefWidth="200.0" text="Cím"/>
+            <TableColumn fx:id="rendelesIdeje" prefWidth="161.0" text="Rendelés Ideje"/>
+            <TableColumn fx:id="rendeltFutarAzonosito" prefWidth="108.0" text="Futár azon"/>
+            <TableColumn fx:id="rendelesFizetendo" prefWidth="91.0" text="Fizetendő"/>
         </columns>
-      </TableView>
-      <Label layoutX="425.0" layoutY="440.0" text="Új rendelés felvétele" />
-      <Label layoutX="135.0" layoutY="471.0" text="Ügyfél adatai" />
-      <Label layoutX="449.0" layoutY="471.0" text="Pizza" />
-      <Label layoutX="809.0" layoutY="471.0" text="Cím" />
-      <TextField fx:id="ugyfelEmail" layoutX="99.0" layoutY="515.0" promptText="Email" />
-      <TextField fx:id="ugyfelVnev" layoutX="93.0" layoutY="556.0" promptText="Vezetéknév" />
-      <TextField fx:id="ugyfelKnev" layoutX="93.0" layoutY="604.0" promptText="Keresztnév" />
-      <ComboBox fx:id="rendeltPizzaFajta" layoutX="427.0" layoutY="556.0" prefWidth="150.0" promptText="Válassz" />
-      <TextField fx:id="rendeltMenny" layoutX="416.0" layoutY="604.0" promptText="Mennyiség" />
-      <TextField fx:id="irsz" layoutX="737.0" layoutY="515.0" promptText="Irányítószám" />
-      <TextField fx:id="telepules" layoutX="737.0" layoutY="556.0" promptText="Település" />
-      <TextField fx:id="utca" layoutX="737.0" layoutY="604.0" promptText="Utca" />
-      <TextField fx:id="hazszam" layoutX="737.0" layoutY="648.0" promptText="Házszám" />
-      <TextField fx:id="rendeltmeret" layoutX="416.0" layoutY="515.0" promptText="Méret" />
-      <Button fx:id="insertRendeles" layoutX="456.0" layoutY="660.0" mnemonicParsing="false" text="Hozzáad" />
-   </children>
+    </TableView>
+    <TextField fx:id="rendeltMenny" layoutX="386.0" layoutY="574.0" promptText="Mennyiség"/>
+    <AnchorPane layoutY="392.0" prefHeight="388.0" prefWidth="1040.0" style="-fx-background-color: bisque;">
+        <Button fx:id="insertRendeles" layoutX="439.0" layoutY="271.0" mnemonicParsing="false" text="Hozzáad">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label layoutX="392.0" layoutY="14.0" text="Új rendelés felvétele">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <AnchorPane layoutX="-1.0" prefHeight="388.0" prefWidth="249.0"
+                    style="-fx-background-color: antiquewhite;">
+            <Label layoutX="57.0" layoutY="14.0" text="Ügyfél adatai">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <TextField fx:id="ugyfelEmail" layoutX="39.0" layoutY="73.0" promptText="Email"/>
+            <TextField fx:id="ugyfelVnev" layoutX="39.0" layoutY="124.0" promptText="Vezetéknév"/>
+            <TextField fx:id="ugyfelKnev" layoutX="39.0" layoutY="181.0" promptText="Keresztnév"/>
+        </AnchorPane>
+        <AnchorPane layoutX="716.0" prefHeight="388.0" prefWidth="310.0"
+                    style="-fx-background-color: antiquewhite;">
+            <Label layoutX="137.0" layoutY="14.0" text="Cím">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <TextField fx:id="irsz" layoutX="71.0" layoutY="52.0" promptText="Irányítószám"/>
+            <TextField fx:id="telepules" layoutX="70.0" layoutY="99.0" promptText="Település"/>
+            <TextField fx:id="utca" layoutX="71.0" layoutY="141.0" promptText="Utca"/>
+            <TextField fx:id="hazszam" layoutX="71.0" layoutY="183.0" promptText="Házszám"/>
+        </AnchorPane>
+        <AnchorPane layoutX="395.0" layoutY="50.0" prefHeight="221.0" prefWidth="200.0"
+                    style="-fx-background-color: antiquewhite;">
+            <Label layoutX="75.0" layoutY="14.0" text="Pizza">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <ComboBox fx:id="rendeltmeret" layoutX="61.0" layoutY="61.0" promptText="Méret"/>
+            <ComboBox fx:id="rendeltPizzaFajta" layoutX="29.0" layoutY="111.0" prefWidth="150.0"
+                      promptText="Fajta"/>
+        </AnchorPane>
+    </AnchorPane>
 </AnchorPane>

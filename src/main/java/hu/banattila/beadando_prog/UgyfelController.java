@@ -2,6 +2,7 @@ package hu.banattila.beadando_prog;
 
 import hu.banattila.beadando_prog.models.Ugyfel;
 import hu.banattila.beadando_prog.utils.MyAlert;
+import hu.banattila.beadando_prog.utils.UgyfelConnection;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,9 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UgyfelController implements Initializable {
+
+    private UgyfelConnection ugyfelConnection;
 
     ObservableList<Ugyfel> ugyfelek;
 
@@ -52,6 +56,7 @@ public class UgyfelController implements Initializable {
     @FXML
     private Button updateUgyfel;
 
+
     private void addNewUgyfel() {
         boolean valid = true;
         String email = newEmail.getText();
@@ -75,8 +80,8 @@ public class UgyfelController implements Initializable {
         }
 
         if (valid) {
-            MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás", Main.pc.insertUgyfel(email, vnev, knev),
-                    Main.pc.getUgyfelek(), tw);
+            MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás", ugyfelConnection.insertUgyfel(email, vnev, knev),
+                    ugyfelConnection.getUgyfelek(), tw);
             newEmail.setText("");
             newVNev.setText("");
             newKNev.setText("");
@@ -85,10 +90,10 @@ public class UgyfelController implements Initializable {
 
     private void updateUgyfelek() {
         if (!tw.getSelectionModel().getSelectedItems().isEmpty()) {
-            TableView.TableViewSelectionModel sm = tw.getSelectionModel();
+            TableView.TableViewSelectionModel<Ugyfel> sm = tw.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
-            ObservableList os = sm.getSelectedItems();
-            Ugyfel ugyfel = (Ugyfel) os.get(0);
+            ObservableList<Ugyfel> os = sm.getSelectedItems();
+            Ugyfel ugyfel = os.get(0);
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             String vnev = updateVNev.getText();
             String knev = updateKNev.getText();
@@ -100,8 +105,8 @@ public class UgyfelController implements Initializable {
                 knev = ugyfel.getKeresztnev();
             }
             MyAlert.alertWithAction(a, "Sikeres frissítés",
-                    Main.pc.updateUgyfel(ugyfel.getEmail(), vnev, knev),
-                    Main.pc.getUgyfelek(), tw);
+                    ugyfelConnection.updateUgyfel(ugyfel.getEmail(), vnev, knev),
+                    ugyfelConnection.getUgyfelek(), tw);
 
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -113,16 +118,16 @@ public class UgyfelController implements Initializable {
 
     private void deleteUgyfel() {
         if (!tw.getSelectionModel().getSelectedItems().isEmpty()) {
-            TableView.TableViewSelectionModel sm = tw.getSelectionModel();
+            TableView.TableViewSelectionModel<Ugyfel> sm = tw.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
-            ObservableList os = sm.getSelectedItems();
-            Ugyfel uf = (Ugyfel) os.get(0);
+            ObservableList<Ugyfel> os = sm.getSelectedItems();
+            Ugyfel ugyfel = os.get(0);
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("TÖRLÉS");
             a.setContentText("Biztosan törlöd?");
             if (a.showAndWait().get() == ButtonType.OK) {
-                MyAlert.alertWithAction(a, "Sikeres törlés", Main.pc.deleteUgyfel(uf.getEmail()),
-                        Main.pc.getUgyfelek(), tw);
+                MyAlert.alertWithAction(a, "Sikeres törlés", ugyfelConnection.deleteUgyfel(ugyfel.getEmail()),
+                        ugyfelConnection.getUgyfelek(), tw);
             }
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -134,13 +139,40 @@ public class UgyfelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tw.getSelectionModel().setSelectionMode(null);
+        ugyfelConnection = new UgyfelConnection();
+        Thread t = new Thread(() -> {
+            Ugyfel u = null;
+            TableView.TableViewSelectionModel<Ugyfel> sm = null;
+            while (true){
+                List<Ugyfel> ugyfelek = ugyfelConnection.getUgyfelek();
+                if (!tw.getSelectionModel().getSelectedItems().isEmpty()){
+                    sm = tw.getSelectionModel();
+                    sm.setSelectionMode(SelectionMode.SINGLE);
+                    ObservableList<Ugyfel> os = sm.getSelectedItems();
+                    u = os.get(0);
+                }
+                tw.setItems(FXCollections.observableArrayList(ugyfelek));
+                if (sm != null && u != null){
+                    for (int i = 0; i < ugyfelek.size(); ++i){
+                        if (ugyfelek.get(i).getEmail().equals(u.getEmail())){
+                            sm.select(i);
+                        }
+                    }
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {}
+            }
+        });
+
         deleteUgyfel.setOnAction(e -> deleteUgyfel());
         updateUgyfel.setOnAction(e -> updateUgyfelek());
-        ugyfelek = FXCollections.observableArrayList(Main.pc.getUgyfelek());
+        ugyfelek = FXCollections.observableArrayList(ugyfelConnection.getUgyfelek());
         addUgyfel.setOnAction(e -> addNewUgyfel());
-        tw.setItems(ugyfelek);
         email.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEmail()));
         vezeteknev.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getVezeteknev()));
         keresztnev.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKeresztnev()));
+        t.start();
     }
 }

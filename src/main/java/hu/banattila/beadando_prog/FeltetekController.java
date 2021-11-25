@@ -1,6 +1,7 @@
 package hu.banattila.beadando_prog;
 
 import hu.banattila.beadando_prog.models.Feltet;
+import hu.banattila.beadando_prog.utils.FeltetConnection;
 import hu.banattila.beadando_prog.utils.MyAlert;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,9 +12,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class FeltetekController implements Initializable {
+
+    private FeltetConnection feltetConnection;
 
     @FXML
     private TableView<Feltet> ftw;
@@ -65,7 +69,7 @@ public class FeltetekController implements Initializable {
 
 
     private void selectFeltetek() {
-        ftw.setItems(FXCollections.observableArrayList(Main.pc.getFeltetek()));
+        ftw.setItems(FXCollections.observableArrayList(feltetConnection.getFeltetek()));
     }
 
     private void searchFeltetByMegnevezes() {
@@ -78,7 +82,7 @@ public class FeltetekController implements Initializable {
         }
 
         if (ok) {
-            Feltet feltet = Main.pc.searchFeltetByMegnevezes(megnevezes);
+            Feltet feltet = feltetConnection.searchFeltetByMegnevezes(megnevezes);
             searchResultMegnevezes.setText(feltet.getMegnevezes());
             searchResutlAr.setText(String.valueOf(feltet.getAr()));
             searchFeltet.setText("");
@@ -101,7 +105,7 @@ public class FeltetekController implements Initializable {
         }
 
         if (ok) {
-            Main.pc.insertFeltet(megnevezes, ar);
+            feltetConnection.insertFeltet(megnevezes, ar);
             selectFeltetek();
             addFeltetMegnevezes.setText("");
             addFeltetAr.setText("");
@@ -110,16 +114,16 @@ public class FeltetekController implements Initializable {
 
     private void deleteFeltet() {
         if (!ftw.getSelectionModel().getSelectedItems().isEmpty()) {
-            TableView.TableViewSelectionModel sm = ftw.getSelectionModel();
+            TableView.TableViewSelectionModel<Feltet> sm = ftw.getSelectionModel();
             sm.setSelectionMode(SelectionMode.SINGLE);
-            ObservableList os = sm.getSelectedItems();
-            Feltet feltet = (Feltet) os.get(0);
+            ObservableList<Feltet> os = sm.getSelectedItems();
+            Feltet feltet = os.get(0);
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("TÖRLÉS");
             a.setContentText("Biztosan törlöd?");
             if (a.showAndWait().get() == ButtonType.OK) {
-                MyAlert.alertWithAction(a, "Sikeres törlés", Main.pc.deleteFeltet(feltet.getMegnevezes()),
-                        Main.pc.getFeltetek(), ftw);
+                MyAlert.alertWithAction(a, "Sikeres törlés", feltetConnection.deleteFeltet(feltet.getMegnevezes()),
+                        feltetConnection.getFeltetek(), ftw);
             }
         } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -131,12 +135,12 @@ public class FeltetekController implements Initializable {
 
     private void incAr() {
         MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres emelés",
-                Main.pc.incFeltetAr(), Main.pc.getFeltetek(), ftw);
+                feltetConnection.incFeltetAr(), feltetConnection.getFeltetek(), ftw);
     }
 
     private void decAr() {
         MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres csökkentés",
-                Main.pc.decFeltetAr(), Main.pc.getFeltetek(), ftw);
+                feltetConnection.decFeltetAr(), feltetConnection.getFeltetek(), ftw);
     }
 
     private void updateFeltetArByMegnevezes() {
@@ -156,12 +160,38 @@ public class FeltetekController implements Initializable {
         if (ok) {
             ar = Integer.parseInt(updateFeltetAr.getText());
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres frissítés",
-                    Main.pc.updateFeltetArByMegnevezes(megnevezes, ar), Main.pc.getFeltetek(), ftw);
+                    feltetConnection.updateFeltetArByMegnevezes(megnevezes, ar), feltetConnection.getFeltetek(), ftw);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        feltetConnection = new FeltetConnection();
+        Thread t = new Thread(() -> {
+            Feltet f = null;
+            TableView.TableViewSelectionModel<Feltet> sm = null;
+            while (true){
+                List<Feltet> feltets = feltetConnection.getFeltetek();
+                if (!ftw.getSelectionModel().getSelectedItems().isEmpty()){
+                    sm = ftw.getSelectionModel();
+                    sm.setSelectionMode(SelectionMode.SINGLE);
+                    ObservableList<Feltet> os = sm.getSelectedItems();
+                    f = os.get(0);
+                }
+                ftw.setItems(FXCollections.observableArrayList(feltets));
+                if (sm != null && f != null){
+                    for (int i = 0; i < feltets.size(); ++i){
+                        if (feltets.get(i).getMegnevezes().equals(f.getMegnevezes())){
+                            sm.select(i);
+                        }
+                    }
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {}
+            }
+        });
+
         selectFeltetek();
         searchResutlAr.setEditable(false);
         searchResutlAr.setDisable(false);
@@ -175,5 +205,6 @@ public class FeltetekController implements Initializable {
         updateFeltet.setOnAction(e -> updateFeltetArByMegnevezes());
         feltetMegnevezes.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMegnevezes()));
         feltetAr.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getAr()).asObject());
+        t.start();
     }
 }

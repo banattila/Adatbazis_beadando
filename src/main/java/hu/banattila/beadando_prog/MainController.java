@@ -9,21 +9,6 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    @FXML
-    private Tab ugyfelek;
-
-    @FXML
-    private Tab dolgozok;
-
-    @FXML
-    private Tab feltetek;
-
-    @FXML
-    private Tab pizzak;
-
-    @FXML
-    private Tab rendelesek;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }

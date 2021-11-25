@@ -2,8 +2,8 @@ package hu.banattila.beadando_prog.models;
 
 public class Feltet {
 
-    private String megnevezes;
-    private int ar;
+    private final String megnevezes;
+    private final int ar;
 
     public Feltet(String megnevezes, int ar) {
         this.megnevezes = megnevezes;
@@ -14,15 +14,7 @@ public class Feltet {
         return megnevezes;
     }
 
-    public void setMegnevezes(String megnevezes) {
-        this.megnevezes = megnevezes;
-    }
-
     public int getAr() {
         return ar;
-    }
-
-    public void setAr(int ar) {
-        this.ar = ar;
     }
 }

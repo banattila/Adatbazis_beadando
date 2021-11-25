@@ -8,53 +8,145 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="dolgozok" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.DolgozokController">
-    <children>
-        <TableView fx:id="dolgozokTable" layoutX="59.0" layoutY="62.0" prefHeight="225.0" prefWidth="533.0">
-            <columns>
-                <TableColumn fx:id="dolgozokAdoszam" prefWidth="152.0" text="Adószám" />
-                <TableColumn fx:id="dolgozokVNev" prefWidth="214.0" text="Vezetéknév" />
-                <TableColumn fx:id="dolgozokKNev" prefWidth="166.0" text="Keresztnév" />
-            </columns>
-        </TableView>
-        <Label layoutX="284.0" layoutY="41.0" text="Dolgozók">
+<AnchorPane id="dolgozok" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: bisque;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hu.banattila.beadando_prog.DolgozokController">
+    <TableView fx:id="dolgozokTable" layoutY="34.0" prefHeight="225.0" prefWidth="533.0">
+        <columns>
+            <TableColumn fx:id="dolgozokAdoszam" prefWidth="152.0" text="Adószám"/>
+            <TableColumn fx:id="dolgozokVNev" prefWidth="214.0" text="Vezetéknév"/>
+            <TableColumn fx:id="dolgozokKNev" prefWidth="166.0" text="Keresztnév"/>
+        </columns>
+    </TableView>
+    <Label layoutX="261.0" layoutY="14.0" text="Dolgozók">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Label>
+    <Label layoutX="268.0" layoutY="324.0" text="Futárok">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Label>
+    <TableView fx:id="futarokTable" layoutX="1.0" layoutY="345.0" prefHeight="225.0" prefWidth="533.0">
+        <columns>
+            <TableColumn fx:id="futarokAdoszam" prefWidth="152.0" text="Adószám"/>
+            <TableColumn fx:id="futarokVNev" prefWidth="129.0" text="Vezetéknév"/>
+            <TableColumn fx:id="futarokKNev" prefWidth="137.0" text="Keresztnév"/>
+            <TableColumn fx:id="futarokDolgozik" prefWidth="114.0" text="Elérhető"/>
+        </columns>
+    </TableView>
+    <AnchorPane layoutX="536.0" prefHeight="142.0" prefWidth="258.0" style="-fx-background-color: antiquewhite;">
+        <Button fx:id="deleteDolgozo" layoutX="45.0" layoutY="103.0" mnemonicParsing="false"
+                text="Kijelölt törlése">
             <font>
-                <Font size="18.0" />
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label layoutX="53.0" layoutY="31.0" text="Kijelölt dolgozó">
+            <font>
+                <Font size="20.0"/>
             </font>
         </Label>
-        <Label layoutX="283.0" layoutY="409.0" text="Futárok">
+        <Label layoutX="95.0" layoutY="59.0" text="torlése">
             <font>
-                <Font size="18.0" />
+                <Font size="20.0"/>
             </font>
         </Label>
-        <TableView fx:id="futarokTable" layoutX="51.0" layoutY="430.0" prefHeight="225.0" prefWidth="533.0">
-            <columns>
-                <TableColumn fx:id="futarokAdoszam" prefWidth="152.0" text="Adószám" />
-                <TableColumn fx:id="futarokVNev" prefWidth="129.0" text="Vezetéknév" />
-                <TableColumn fx:id="futarokKNev" prefWidth="137.0" text="Keresztnév" />
-                <TableColumn fx:id="futarokDolgozik" prefWidth="114.0" text="Elérhető" />
-            </columns>
-        </TableView>
-        <Button fx:id="deleteDolgozo" layoutX="616.0" layoutY="69.0" mnemonicParsing="false" text="Kijelölt törlése" />
-        <Button fx:id="deleteFutar" layoutX="605.0" layoutY="436.0" mnemonicParsing="false" text="Kijelölt törlése" />
-        <Button fx:id="addDolgozo" layoutX="621.0" layoutY="347.0" mnemonicParsing="false" text="Dolgozo hozzáadása" />
-        <Button fx:id="addFutar" layoutX="611.0" layoutY="687.0" mnemonicParsing="false" text="Futár hozzáadása" />
-        <TextField fx:id="newAdoszamDolgozo" layoutX="51.0" layoutY="347.0" promptText="Adószám" />
-        <TextField fx:id="newVNevDolgozo" layoutX="239.0" layoutY="347.0" promptText="Vezetéknév" />
-        <TextField fx:id="newKNevDolgozo" layoutX="439.0" layoutY="347.0" promptText="Keresztnév" />
-        <TextField fx:id="newAdoszamFutar" layoutX="33.0" layoutY="687.0" promptText="Adószám" />
-        <TextField fx:id="newVNevFutar" layoutX="221.0" layoutY="687.0" promptText="Vezetéknév" />
-        <TextField fx:id="newKNevFutar" layoutX="421.0" layoutY="687.0" promptText="Keresztnév" />
-        <Button fx:id="updateFutarWorking" layoutX="608.0" layoutY="480.0" mnemonicParsing="false" text="Kijelölt Dolgozik/Nem Dolgozik" />
-        <Label layoutX="247.0" layoutY="314.0" text="Dolgozók hozzáadása" />
-        <Label layoutX="249.0" layoutY="662.0" text="Futár hozzáadása" />
-        <Button fx:id="updateDolgozo" layoutX="691.0" layoutY="236.0" mnemonicParsing="false" text="Dolgozó adatainak frissítése" />
-        <TextField fx:id="updateDolgozoVNev" layoutX="621.0" layoutY="194.0" promptText="Vezetéknév" />
-        <TextField fx:id="updateDolgozoKNev" layoutX="812.0" layoutY="194.0" promptText="Keresztnév" />
-        <Label layoutX="684.0" layoutY="167.0" text="Kijelölt dolgozó adatainak módosítása" />
-        <Button fx:id="updateFutarData" layoutX="675.0" layoutY="612.0" mnemonicParsing="false" text="Kijelölt futár adatainak frissítése" />
-        <TextField fx:id="updateFutarVNev" layoutX="605.0" layoutY="570.0" promptText="Vezetéknév" />
-        <TextField fx:id="updateFutarKNev" layoutX="796.0" layoutY="570.0" promptText="Keresztnév" />
-        <Label layoutX="668.0" layoutY="543.0" text="Kijelölt futár adatainak módosítása" />
-    </children>
+    </AnchorPane>
+    <AnchorPane layoutX="533.0" layoutY="354.0" prefHeight="136.0" prefWidth="258.0"
+                style="-fx-background-color: antiquewhite;">
+        <Label layoutX="25.0" layoutY="27.0" text="Kijelölt futár törlése">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Button fx:id="deleteFutar" layoutX="39.0" layoutY="71.0" mnemonicParsing="false" text="Kijelölt törlése">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+    </AnchorPane>
+    <AnchorPane layoutX="790.0" prefHeight="225.0" prefWidth="334.0" style="-fx-background-color: antiquewhite;">
+        <Label layoutX="41.0" layoutY="27.0" text="Kijelölt dolgozó adatainak">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="updateDolgozoKNev" layoutX="72.0" layoutY="121.0" promptText="Keresztnév"/>
+        <TextField fx:id="updateDolgozoVNev" layoutX="72.0" layoutY="86.0" promptText="Vezetéknév"/>
+        <Button fx:id="updateDolgozo" layoutX="15.0" layoutY="163.0" mnemonicParsing="false"
+                text="Dolgozó adatainak frissítése">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label layoutX="99.0" layoutY="61.0" text="módosítása">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+    </AnchorPane>
+    <AnchorPane layoutX="534.0" layoutY="136.0" prefHeight="218.0" prefWidth="258.0"
+                style="-fx-background-color: antiquewhite;">
+        <Label layoutX="28.0" layoutY="14.0" text="Dolgozók hozzáadása">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="newAdoszamDolgozo" layoutX="44.0" layoutY="47.0" promptText="Adószám"/>
+        <TextField fx:id="newVNevDolgozo" layoutX="44.0" layoutY="84.0" promptText="Vezetéknév"/>
+        <TextField fx:id="newKNevDolgozo" layoutX="44.0" layoutY="120.0" promptText="Keresztnév"/>
+        <Button fx:id="addDolgozo" layoutX="13.0" layoutY="155.0" mnemonicParsing="false" text="Dolgozo hozzáadása">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+    </AnchorPane>
+    <AnchorPane layoutX="790.0" layoutY="345.0" prefHeight="195.0" prefWidth="310.0"
+                style="-fx-background-color: antiquewhite;">
+        <Label layoutX="40.0" layoutY="6.0" text="Kijelölt futár adatainak">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Label layoutX="96.0" layoutY="32.0" text="módosítása">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="updateFutarVNev" layoutX="70.0" layoutY="66.0" promptText="Vezetéknév"/>
+        <TextField fx:id="updateFutarKNev" layoutX="70.0" layoutY="102.0" promptText="Keresztnév"/>
+        <Button fx:id="updateFutarData" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" prefHeight="25.0"
+                prefWidth="281.0" text="Futár adatainak frissítése">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+    </AnchorPane>
+    <AnchorPane layoutX="118.0" layoutY="572.0" prefHeight="62.0" prefWidth="369.0"
+                style="-fx-background-color: antiquewhite;">
+        <Button fx:id="updateFutarWorking" layoutX="11.0" layoutY="13.0" mnemonicParsing="false" prefHeight="39.0"
+                prefWidth="334.0" text="Kijelölt Dolgozik/Nem Dolgozik">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+    </AnchorPane>
+    <AnchorPane layoutX="532.0" layoutY="490.0" prefHeight="225.0" prefWidth="258.0"
+                style="-fx-background-color: antiquewhite;">
+        <Button fx:id="addFutar" layoutX="36.0" layoutY="166.0" mnemonicParsing="false" text="Futár hozzáadása">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label layoutX="49.0" layoutY="20.0" text="Futár hozzáadása">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="newAdoszamFutar" layoutX="52.0" layoutY="54.0" promptText="Adószám"/>
+        <TextField fx:id="newVNevFutar" layoutX="52.0" layoutY="98.0" promptText="Vezetéknév"/>
+        <TextField fx:id="newKNevFutar" layoutX="52.0" layoutY="132.0" promptText="Keresztnév"/>
+    </AnchorPane>
 </AnchorPane>
