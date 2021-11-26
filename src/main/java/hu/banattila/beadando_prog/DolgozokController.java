@@ -98,6 +98,9 @@ public class DolgozokController implements Initializable {
     @FXML
     private Button updateFutarData;
 
+    @FXML
+    private Button refresh;
+
 
     private void addNewDolgozo() {
         boolean valid = true;
@@ -290,55 +293,19 @@ public class DolgozokController implements Initializable {
         }
     }
 
+    private void setRefresh(){
+        refresh.setOnAction(e -> {
+            futarokTable.setItems(FXCollections.observableArrayList(dc.getFutarok()));
+            dolgozokTable.setItems(FXCollections.observableArrayList(dc.getDolgozok()));
+        });
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dc = new DolgozokConnection();
-        Thread t = new Thread(() -> {
-            Futar f = null;
-            Dolgozo d = null;
-            TableView.TableViewSelectionModel<Futar> sm = null;
-            TableView.TableViewSelectionModel<Dolgozo> smd = null;
-            while (true){
-                List<Futar> futarok = dc.getFutarok();
-                List<Dolgozo> dolgozok = dc.getDolgozok();
-
-                //futarok
-                if (!futarokTable.getSelectionModel().getSelectedItems().isEmpty()){
-                    sm = futarokTable.getSelectionModel();
-                    sm.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Futar> os = sm.getSelectedItems();
-                    f = os.get(0);
-                }
-                futarokTable.setItems(FXCollections.observableArrayList(futarok));
-                if (sm != null && f != null){
-                    for (int i = 0; i < futarok.size(); ++i){
-                        if (futarok.get(i).getAdoszam().equals(f.getAdoszam())){
-                            sm.select(i);
-                        }
-                    }
-                }
-
-                //dolgozok
-                if (!dolgozokTable.getSelectionModel().getSelectedItems().isEmpty()){
-                    smd = dolgozokTable.getSelectionModel();
-                    smd.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Dolgozo> os = smd.getSelectedItems();
-                    d = os.get(0);
-                }
-                dolgozokTable.setItems(FXCollections.observableArrayList(dolgozok));
-                if (smd != null && d != null){
-                    for (int i = 0; i < futarok.size(); ++i){
-                        if (dolgozok.get(i).getAdoszam().equals(d.getAdoszam())){
-                            smd.select(i);
-                        }
-                    }
-                }
-                try {
-                    Thread.sleep(2000);
-                } catch (Exception e) {}
-            }
-        });
+        futarokTable.setItems(FXCollections.observableArrayList(dc.getFutarok()));
+        dolgozokTable.setItems(FXCollections.observableArrayList(dc.getDolgozok()));
+        setRefresh();
         addDolgozo.setOnAction(e -> addNewDolgozo());
         addFutar.setOnAction(e -> addNewFutar());
         deleteDolgozo.setOnAction(e -> deleteDolgozo());
@@ -356,7 +323,6 @@ public class DolgozokController implements Initializable {
         futarokVNev.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getVezeteknev()));
         futarokKNev.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getKeresztnev()));
         futarokDolgozik.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getElerheto()));
-        t.start();
 
     }
 }

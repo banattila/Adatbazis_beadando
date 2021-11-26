@@ -113,9 +113,10 @@ public class RendelesekConnection extends PizzeriaConnection {
                 pstmt.setInt(6, mennyiseg);
                 pstmt.execute();
             }
+            LocalDateTime time = LocalDateTime.now();
 
             pstmt = conn.prepareStatement("INSERT INTO RENDELES VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            pstmt.setObject(1, LocalDateTime.now());
+            pstmt.setObject(1, time);
             pstmt.setString(2, email);
             pstmt.setString(3, fajta);
             pstmt.setInt(4, meret);
@@ -124,6 +125,11 @@ public class RendelesekConnection extends PizzeriaConnection {
             pstmt.setString(7, utca);
             pstmt.setInt(8, hazszam);
             pstmt.setString(9, elerhetoFutarok);
+            pstmt.execute();
+
+            //insert rendeles_alllapota
+            pstmt = conn.prepareStatement("INSERT INTO RENDELES_ALLAPOTA (rendeles_ideje)VALUES (?)");
+            pstmt.setObject(1, time);
             pstmt.execute();
 
             //update futar elerheto

@@ -100,6 +100,9 @@ public class PizzakController implements Initializable {
     @FXML
     private Button deletepizzaBtn;
 
+    @FXML
+    private Button refresh;
+
 
     private void addNewCsaladiPizza() {
         boolean ok = true;
@@ -285,74 +288,25 @@ public class PizzakController implements Initializable {
         addpizzaBtn.setOnAction(e -> addNewCsaladiPizza());
     }
 
+    private void setRefresh(){
+        refresh.setOnAction(e -> {
+            kispizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(KIS_MERET)));
+            kozepespizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(KOZEPES_MERET)));
+            csaladipizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(CSALADI_MERET)));
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pizzaConnection = new PizzaConnection();
         feltetConnection = new FeltetConnection();
-        Thread t = new Thread(() -> {
-
-            kicsi = null;
-            kozepes = null;
-            csaladi = null;
-            TableView.TableViewSelectionModel<Pizza> smk = null;
-            TableView.TableViewSelectionModel<Pizza> smko = null;
-            TableView.TableViewSelectionModel<Pizza> smcs = null;
-            while (true) {
-                List<Pizza> kicsik = pizzaConnection.getPizzak(KIS_MERET);
-                List<Pizza> kozepesek = pizzaConnection.getPizzak(KOZEPES_MERET);
-                List<Pizza> csaladik = pizzaConnection.getPizzak(CSALADI_MERET);
-                if (!kispizzakTw.getSelectionModel().getSelectedItems().isEmpty()) {
-                    smk = kispizzakTw.getSelectionModel();
-                    smk.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Pizza> os = smk.getSelectedItems();
-                    kicsi = os.get(0);
-                }
-                kispizzakTw.setItems(FXCollections.observableArrayList(kicsik));
-                if (smk != null && kicsi != null) {
-                    for (int i = 0; i < kicsik.size(); ++i) {
-                        if (kicsik.get(i).getFajta().equals(kicsi.getFajta())) {
-                            smk.select(i);
-                        }
-                    }
-                }
-                if (!kozepespizzakTw.getSelectionModel().getSelectedItems().isEmpty()) {
-                    smko = kozepespizzakTw.getSelectionModel();
-                    smko.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Pizza> os = smko.getSelectedItems();
-                    kozepes = os.get(0);
-                }
-                kozepespizzakTw.setItems(FXCollections.observableArrayList(kozepesek));
-                if (smko != null && kozepes != null) {
-                    for (int i = 0; i < kozepesek.size(); ++i) {
-                        if (kozepesek.get(i).getFajta().equals(kozepes.getFajta())) {
-                            smko.select(i);
-                        }
-                    }
-                }
-                if (!csaladipizzakTw.getSelectionModel().getSelectedItems().isEmpty()) {
-                    smcs = csaladipizzakTw.getSelectionModel();
-                    smcs.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Pizza> os = smcs.getSelectedItems();
-                    csaladi = os.get(0);
-                }
-                csaladipizzakTw.setItems(FXCollections.observableArrayList(kicsik));
-                if (smcs != null && csaladi != null) {
-                    for (int i = 0; i < csaladik.size(); ++i) {
-                        if (csaladik.get(i).getFajta().equals(csaladi.getFajta())) {
-                            smcs.select(i);
-                        }
-                    }
-                }
-                try {
-                    Thread.sleep(2000);
-                } catch (Exception e) {
-                }
-            }
-        });
+        kispizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(KIS_MERET)));
+        kozepespizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(KOZEPES_MERET)));
+        csaladipizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(CSALADI_MERET)));
+        setRefresh();
         setAlapokEsOsszetevok();
         setColumns();
         setUpdatePizzak();
         setDeletePizzak();
-        t.start();
     }
 }

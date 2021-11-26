@@ -3,28 +3,27 @@ package hu.banattila.beadando_prog.models;
 import java.time.LocalDateTime;
 
 public class RendelesAllapot {
+    private final String email;
+    private final LocalDateTime rendelesIdeje;
+    private final boolean allapota;
 
-    private LocalDateTime rendelesIdeje;
-    private boolean allapota;
-
-    public RendelesAllapot(LocalDateTime rendelesIdeje, boolean allapota) {
+    public RendelesAllapot(String email, LocalDateTime rendelesIdeje, boolean allapota) {
+        this.email = email;
         this.rendelesIdeje = rendelesIdeje;
         this.allapota = allapota;
     }
 
-    public LocalDateTime getRendelesIdeje() {
-        return rendelesIdeje;
+    public String getEmail(){
+        return email;
     }
 
-    public void setRendelesIdeje(LocalDateTime rendelesIdeje) {
-        this.rendelesIdeje = rendelesIdeje;
+    public String getRendelesIdeje() {
+        String res = rendelesIdeje.toString();
+        return res.replace("T", " ");
     }
 
-    public boolean isAllapota() {
-        return allapota;
+    public String isAllapota() {
+        return allapota?"Teljesített":"Nem teljesített";
     }
 
-    public void setAllapota(boolean allapota) {
-        this.allapota = allapota;
-    }
 }

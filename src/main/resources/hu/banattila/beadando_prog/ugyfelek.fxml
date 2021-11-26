@@ -18,48 +18,48 @@
         </columns>
     </TableView>
     <AnchorPane layoutX="732.0" prefHeight="297.0" prefWidth="292.0" style="-fx-background-color: antiquewhite;">
-        <Label layoutX="40.0" layoutY="70.0" text="Kijelölt ügyfél törlése">
+        <Label layoutX="40.0" layoutY="156.0" text="Kijelölt ügyfél törlése">
            <font>
-               <Font size="20.0"/>
+               <Font size="17.0" />
            </font>
         </Label>
-        <Button fx:id="deleteUgyfel" layoutX="34.0" layoutY="129.0" mnemonicParsing="false"
-                text="Kijelölt elem törlése">
+        <Button fx:id="deleteUgyfel" layoutX="34.0" layoutY="191.0" mnemonicParsing="false" text="Kijelölt elem törlése">
           <font>
-              <Font size="20.0"/>
+              <Font size="17.0" />
+          </font>
+        </Button>
+      <Button fx:id="refresh" layoutX="48.0" layoutY="51.0" mnemonicParsing="false" text="Adatok frissítése">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+    </AnchorPane>
+    <AnchorPane layoutX="51.0" layoutY="351.0" prefHeight="164.0" prefWidth="875.0" style="-fx-background-color: antiquewhite;">
+        <Label layoutX="314.0" layoutY="28.0" text="Új ügyfél felvétele">
+          <font>
+              <Font size="17.0" />
+          </font>
+        </Label>
+        <TextField fx:id="newEmail" layoutX="32.0" layoutY="89.0" promptText="Email" />
+        <TextField fx:id="newVNev" layoutX="220.0" layoutY="89.0" promptText="Vezetéknév" />
+        <TextField fx:id="newKNev" layoutX="420.0" layoutY="89.0" promptText="Keresztnév" />
+        <Button fx:id="addUgyfel" layoutX="623.0" layoutY="85.0" mnemonicParsing="false" text="Ügyfél hozzáadása">
+          <font>
+              <Font size="17.0" />
           </font>
         </Button>
     </AnchorPane>
-    <AnchorPane layoutX="51.0" layoutY="351.0" prefHeight="164.0" prefWidth="875.0"
-                style="-fx-background-color: antiquewhite;">
-        <Label layoutX="300.0" layoutY="25.0" text="Új ügyfél felvétele">
+    <AnchorPane layoutX="51.0" layoutY="535.0" prefHeight="200.0" prefWidth="875.0" style="-fx-background-color: antiquewhite;">
+        <Label layoutX="34.0" layoutY="23.0" text="Kijelölt ügyfél adadtainak frissítése. Az üresen hagyott mező értékei nem változnak">
           <font>
-              <Font size="20.0"/>
+              <Font size="17.0" />
           </font>
         </Label>
-        <TextField fx:id="newEmail" layoutX="32.0" layoutY="89.0" promptText="Email"/>
-        <TextField fx:id="newVNev" layoutX="220.0" layoutY="89.0" promptText="Vezetéknév"/>
-        <TextField fx:id="newKNev" layoutX="420.0" layoutY="89.0" promptText="Keresztnév"/>
-        <Button fx:id="addUgyfel" layoutX="629.0" layoutY="82.0" mnemonicParsing="false" text="Ügyfél hozzáadása">
+        <TextField fx:id="updateVNev" layoutX="75.0" layoutY="89.0" promptText="Vezetéknév" />
+        <TextField fx:id="updateKNev" layoutX="289.0" layoutY="89.0" promptText="Keresztnév" />
+        <Button fx:id="updateUgyfel" layoutX="498.0" layoutY="81.0" mnemonicParsing="false" text="Ügyfél adatainak frissítése">
           <font>
-              <Font size="20.0"/>
-          </font>
-        </Button>
-    </AnchorPane>
-    <AnchorPane layoutX="51.0" layoutY="535.0" prefHeight="200.0" prefWidth="875.0"
-                style="-fx-background-color: antiquewhite;">
-        <Label layoutX="19.0" layoutY="23.0"
-               text="Kijelölt ügyfél adadtainak frissítése. Az üresen hagyott mező értékei nem változnak">
-          <font>
-              <Font size="20.0"/>
-          </font>
-        </Label>
-        <TextField fx:id="updateVNev" layoutX="75.0" layoutY="89.0" promptText="Vezetéknév"/>
-        <TextField fx:id="updateKNev" layoutX="289.0" layoutY="89.0" promptText="Keresztnév"/>
-        <Button fx:id="updateUgyfel" layoutX="498.0" layoutY="81.0" mnemonicParsing="false"
-                text="Ügyfél adatainak frissítése">
-          <font>
-              <Font size="20.0"/>
+              <Font size="17.0" />
           </font>
         </Button>
     </AnchorPane>

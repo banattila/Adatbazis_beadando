@@ -67,6 +67,9 @@ public class FeltetekController implements Initializable {
     @FXML
     private Button decArBtn;
 
+    @FXML
+    private Button refresh;
+
 
     private void selectFeltetek() {
         ftw.setItems(FXCollections.observableArrayList(feltetConnection.getFeltetek()));
@@ -164,33 +167,18 @@ public class FeltetekController implements Initializable {
         }
     }
 
+    private void setRefresh(){
+        refresh.setOnAction(e -> {
+            ftw.setItems(FXCollections.observableArrayList(feltetConnection.getFeltetek()));
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         feltetConnection = new FeltetConnection();
-        Thread t = new Thread(() -> {
-            Feltet f = null;
-            TableView.TableViewSelectionModel<Feltet> sm = null;
-            while (true){
-                List<Feltet> feltets = feltetConnection.getFeltetek();
-                if (!ftw.getSelectionModel().getSelectedItems().isEmpty()){
-                    sm = ftw.getSelectionModel();
-                    sm.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Feltet> os = sm.getSelectedItems();
-                    f = os.get(0);
-                }
-                ftw.setItems(FXCollections.observableArrayList(feltets));
-                if (sm != null && f != null){
-                    for (int i = 0; i < feltets.size(); ++i){
-                        if (feltets.get(i).getMegnevezes().equals(f.getMegnevezes())){
-                            sm.select(i);
-                        }
-                    }
-                }
-                try {
-                    Thread.sleep(2000);
-                } catch (Exception e) {}
-            }
-        });
+        ftw.setItems(FXCollections.observableArrayList(feltetConnection.getFeltetek()));
+        setRefresh();
+
 
         selectFeltetek();
         searchResutlAr.setEditable(false);
@@ -205,6 +193,5 @@ public class FeltetekController implements Initializable {
         updateFeltet.setOnAction(e -> updateFeltetArByMegnevezes());
         feltetMegnevezes.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMegnevezes()));
         feltetAr.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getAr()).asObject());
-        t.start();
     }
 }

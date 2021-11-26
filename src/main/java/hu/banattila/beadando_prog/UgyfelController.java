@@ -56,6 +56,9 @@ public class UgyfelController implements Initializable {
     @FXML
     private Button updateUgyfel;
 
+    @FXML
+    private Button refresh;
+
 
     private void addNewUgyfel() {
         boolean valid = true;
@@ -137,35 +140,18 @@ public class UgyfelController implements Initializable {
         }
     }
 
+    private void setRefresh(){
+        refresh.setOnAction(e -> {
+            tw.setItems(FXCollections.observableArrayList(ugyfelConnection.getUgyfelek()));
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tw.getSelectionModel().setSelectionMode(null);
         ugyfelConnection = new UgyfelConnection();
-        Thread t = new Thread(() -> {
-            Ugyfel u = null;
-            TableView.TableViewSelectionModel<Ugyfel> sm = null;
-            while (true){
-                List<Ugyfel> ugyfelek = ugyfelConnection.getUgyfelek();
-                if (!tw.getSelectionModel().getSelectedItems().isEmpty()){
-                    sm = tw.getSelectionModel();
-                    sm.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Ugyfel> os = sm.getSelectedItems();
-                    u = os.get(0);
-                }
-                tw.setItems(FXCollections.observableArrayList(ugyfelek));
-                if (sm != null && u != null){
-                    for (int i = 0; i < ugyfelek.size(); ++i){
-                        if (ugyfelek.get(i).getEmail().equals(u.getEmail())){
-                            sm.select(i);
-                        }
-                    }
-                }
-                try {
-                    Thread.sleep(2000);
-                } catch (Exception e) {}
-            }
-        });
 
+        setRefresh();
+        tw.setItems(FXCollections.observableArrayList(ugyfelConnection.getUgyfelek()));
         deleteUgyfel.setOnAction(e -> deleteUgyfel());
         updateUgyfel.setOnAction(e -> updateUgyfelek());
         ugyfelek = FXCollections.observableArrayList(ugyfelConnection.getUgyfelek());
@@ -173,6 +159,5 @@ public class UgyfelController implements Initializable {
         email.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEmail()));
         vezeteknev.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getVezeteknev()));
         keresztnev.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKeresztnev()));
-        t.start();
     }
 }

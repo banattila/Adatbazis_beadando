@@ -119,6 +119,9 @@ public class RendelesekController implements Initializable {
     @FXML
     private Button insertRendeles;
 
+    @FXML
+    private Button refresh;
+
     private boolean checkCimDataFields() {
         boolean res = true;
         if (irsz.getText().isEmpty() || irsz.getText().isBlank()) {
@@ -204,38 +207,21 @@ public class RendelesekController implements Initializable {
         }
     }
 
+    private void setRefresh(){
+        refresh.setOnAction(e -> {
+            tw.setItems(FXCollections.observableArrayList(rendelesekConnection.getRendelesek()));
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         rendelesekConnection = new RendelesekConnection();
         pizzaConnection = new PizzaConnection();
-        Thread t = new Thread(() -> {
-            Rendeles rendeles = null;
-            TableView.TableViewSelectionModel<Rendeles> sm = null;
-            while (true){
-                List<Rendeles> rendelesek = rendelesekConnection.getRendelesek();
-                if (!tw.getSelectionModel().getSelectedItems().isEmpty()){
-                    sm = tw.getSelectionModel();
-                    sm.setSelectionMode(SelectionMode.SINGLE);
-                    ObservableList<Rendeles> os = sm.getSelectedItems();
-                    rendeles = os.get(0);
-                }
-                tw.setItems(FXCollections.observableArrayList(rendelesek));
-                if (sm != null && rendeles != null){
-                    for (int i = 0; i < rendelesek.size(); ++i){
-                        if (rendelesek.get(i).getRendelesIdeje().equals(rendeles.getRendelesIdeje())){
-                            sm.select(i);
-                        }
-                    }
-                }
-                try {
-                    Thread.sleep(2000);
-                } catch (Exception e) {}
-            }
-        });
+        setRefresh();
+        tw.setItems(FXCollections.observableArrayList(rendelesekConnection.getRendelesek()));
         setColumns();
         setNumberFields();
         setRendeltFajtaEsMeret();
         insertRendeles.setOnAction(e -> insertRendeles());
-        t.start();
     }
 }
