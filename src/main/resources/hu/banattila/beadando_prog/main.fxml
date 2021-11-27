@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="hu.banattila.beadando_prog.MainController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="hu.banattila.beadando_prog.controllers.MainController">
     <TabPane>
         <Tab fx:id="ugyfelek" text="Ügyfelek">
             <fx:include source="ugyfelek.fxml"/>
@@ -18,6 +18,9 @@
         </Tab>
         <Tab fx:id="rendelesek" text="Rendelések">
             <fx:include source="rendelesek_main.fxml"/>
+        </Tab>
+        <Tab text="Statisztikák">
+            <fx:include source="statisztika.fxml"/>
         </Tab>
     </TabPane>
 </AnchorPane>

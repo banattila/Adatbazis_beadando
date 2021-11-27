@@ -1,8 +1,6 @@
-package hu.banattila.beadando_prog.utils;
+package hu.banattila.beadando_prog.utils.connection;
 
-import hu.banattila.beadando_prog.models.Futar;
 import hu.banattila.beadando_prog.models.RendelesAllapot;
-
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +9,7 @@ import java.util.List;
 
 public class RendelesAllapotConnection extends PizzeriaConnection {
 
-    public List<RendelesAllapot> getAllapotok(){
+    public List<RendelesAllapot> getAllapotok() {
         List<RendelesAllapot> res = new ArrayList<>();
         connecting();
 
@@ -19,13 +17,13 @@ public class RendelesAllapotConnection extends PizzeriaConnection {
             pstmt = conn.prepareStatement("SELECT rendeles_ideje, allapota, email FROM RENDELES_ALLAPOTA NATURAL JOIN RENDELES");
             rs = pstmt.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 res.add(new RendelesAllapot(rs.getString("email"),
                         LocalDateTime.parse(rs.getString("rendeles_ideje"),
                                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), rs.getBoolean("allapota"))
                 );
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -33,7 +31,7 @@ public class RendelesAllapotConnection extends PizzeriaConnection {
         return res;
     }
 
-    public String setTeljesitett(String rendelesIdeje){
+    public String setTeljesitett(String rendelesIdeje) {
         String res = "Ok";
         connecting();
 
@@ -50,7 +48,7 @@ public class RendelesAllapotConnection extends PizzeriaConnection {
             pstmt.execute();
 
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             res = e.getMessage();
             e.printStackTrace();
         }

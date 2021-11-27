@@ -1,4 +1,4 @@
-package hu.banattila.beadando_prog.utils;
+package hu.banattila.beadando_prog.utils.connection;
 
 import hu.banattila.beadando_prog.models.Rendeles;
 

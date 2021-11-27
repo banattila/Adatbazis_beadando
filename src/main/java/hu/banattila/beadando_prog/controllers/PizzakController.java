@@ -1,10 +1,10 @@
-package hu.banattila.beadando_prog;
+package hu.banattila.beadando_prog.controllers;
 
 import hu.banattila.beadando_prog.models.Feltet;
 import hu.banattila.beadando_prog.models.Pizza;
-import hu.banattila.beadando_prog.utils.FeltetConnection;
 import hu.banattila.beadando_prog.utils.MyAlert;
-import hu.banattila.beadando_prog.utils.PizzaConnection;
+import hu.banattila.beadando_prog.utils.connection.FeltetConnection;
+import hu.banattila.beadando_prog.utils.connection.PizzaConnection;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -60,7 +60,6 @@ public class PizzakController implements Initializable {
     @FXML
     private TableColumn<Pizza, Integer> kozepespizzaAr;
 
-
     @FXML
     private TableView<Pizza> csaladipizzakTw;
 
@@ -102,7 +101,6 @@ public class PizzakController implements Initializable {
 
     @FXML
     private Button refresh;
-
 
     private void addNewCsaladiPizza() {
         boolean ok = true;
@@ -288,7 +286,7 @@ public class PizzakController implements Initializable {
         addpizzaBtn.setOnAction(e -> addNewCsaladiPizza());
     }
 
-    private void setRefresh(){
+    private void setRefresh() {
         refresh.setOnAction(e -> {
             kispizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(KIS_MERET)));
             kozepespizzakTw.setItems(FXCollections.observableArrayList(pizzaConnection.getPizzak(KOZEPES_MERET)));

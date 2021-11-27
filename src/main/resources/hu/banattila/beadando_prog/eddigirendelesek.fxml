@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.RendelesekController">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hu.banattila.beadando_prog.controllers.RendelesekController">
     <TableView fx:id="tw" layoutX="7.0" layoutY="7.0" prefHeight="415.0" prefWidth="1018.0">
         <columns>
             <TableColumn fx:id="ugyfelmail" prefWidth="188.0" text="Ügyfél email címe"/>

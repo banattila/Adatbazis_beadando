@@ -1,8 +1,8 @@
-package hu.banattila.beadando_prog;
+package hu.banattila.beadando_prog.controllers;
 
 import hu.banattila.beadando_prog.models.Ugyfel;
 import hu.banattila.beadando_prog.utils.MyAlert;
-import hu.banattila.beadando_prog.utils.UgyfelConnection;
+import hu.banattila.beadando_prog.utils.connection.UgyfelConnection;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class UgyfelController implements Initializable {
@@ -140,7 +139,7 @@ public class UgyfelController implements Initializable {
         }
     }
 
-    private void setRefresh(){
+    private void setRefresh() {
         refresh.setOnAction(e -> {
             tw.setItems(FXCollections.observableArrayList(ugyfelConnection.getUgyfelek()));
         });

@@ -4,16 +4,14 @@ import java.time.LocalDateTime;
 
 public class Rendeles {
 
-    private LocalDateTime rendelesIdeje;
-    private String email;
-    private String fajta;
-    private int meret;
-    private int rendeltMennyiseg;
-    private String telepules;
-    private String cim;
-    private String adoszam;
-    private int fizetendo;
-
+    private final LocalDateTime rendelesIdeje;
+    private final String email;
+    private final String fajta;
+    private final int meret;
+    private final int rendeltMennyiseg;
+    private final String cim;
+    private final String adoszam;
+    private final int fizetendo;
 
     public Rendeles(LocalDateTime rendelesIdeje, String email, String fajta, int meret,
                     int rendeltMennyiseg, int irsz, String telepules, String utca, int hazszam, String adoszam,

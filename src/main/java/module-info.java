@@ -13,4 +13,9 @@ module hu.banattila.beadando_prog {
     exports hu.banattila.beadando_prog.models;
     exports hu.banattila.beadando_prog.utils;
     opens hu.banattila.beadando_prog.utils to java.sql, javafx.fxml;
+    exports hu.banattila.beadando_prog.models.statisztika;
+    exports hu.banattila.beadando_prog.utils.connection;
+    opens hu.banattila.beadando_prog.utils.connection to java.sql, javafx.fxml;
+    exports hu.banattila.beadando_prog.controllers;
+    opens hu.banattila.beadando_prog.controllers to java.sql, javafx.fxml;
 }

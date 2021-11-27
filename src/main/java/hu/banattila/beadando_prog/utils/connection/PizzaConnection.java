@@ -1,7 +1,6 @@
-package hu.banattila.beadando_prog.utils;
+package hu.banattila.beadando_prog.utils.connection;
 
 import hu.banattila.beadando_prog.models.Pizza;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,13 +70,13 @@ public class PizzaConnection extends PizzeriaConnection {
             pstmt = conn.prepareStatement("INSERT INTO PIZZA VALUES(?, ?, ?)");
             pstmt.setString(1, fajta);
             pstmt.setInt(2, 30);
-            pstmt.setInt(3, (int) (ar*1.2));
+            pstmt.setInt(3, (int) (ar * 1.2));
             pstmt.execute();
             //nagy
             pstmt = conn.prepareStatement("INSERT INTO PIZZA VALUES(?, ?, ?)");
             pstmt.setString(1, fajta);
             pstmt.setInt(2, 50);
-            pstmt.setInt(3, (int) (ar*3.2));
+            pstmt.setInt(3, (int) (ar * 3.2));
             pstmt.execute();
 
             //insert alap

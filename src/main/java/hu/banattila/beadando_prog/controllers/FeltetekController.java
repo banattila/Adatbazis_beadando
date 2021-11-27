@@ -1,8 +1,8 @@
-package hu.banattila.beadando_prog;
+package hu.banattila.beadando_prog.controllers;
 
 import hu.banattila.beadando_prog.models.Feltet;
-import hu.banattila.beadando_prog.utils.FeltetConnection;
 import hu.banattila.beadando_prog.utils.MyAlert;
+import hu.banattila.beadando_prog.utils.connection.FeltetConnection;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class FeltetekController implements Initializable {
@@ -167,7 +166,7 @@ public class FeltetekController implements Initializable {
         }
     }
 
-    private void setRefresh(){
+    private void setRefresh() {
         refresh.setOnAction(e -> {
             ftw.setItems(FXCollections.observableArrayList(feltetConnection.getFeltetek()));
         });

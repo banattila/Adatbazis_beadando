@@ -1,19 +1,17 @@
-package hu.banattila.beadando_prog;
+package hu.banattila.beadando_prog.controllers;
 
 import hu.banattila.beadando_prog.models.Rendeles;
 import hu.banattila.beadando_prog.utils.MyAlert;
-import hu.banattila.beadando_prog.utils.PizzaConnection;
-import hu.banattila.beadando_prog.utils.RendelesekConnection;
+import hu.banattila.beadando_prog.utils.connection.PizzaConnection;
+import hu.banattila.beadando_prog.utils.connection.RendelesekConnection;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -186,10 +184,15 @@ public class RendelesekController implements Initializable {
             int meret = 0;
             String rendeltM = rendeltmeret.getValue();
 
-            switch (rendeltM){
-                case "Kicsi": meret = 26; break;
-                case "Közepes": meret = 30; break;
-                default: meret = 50;
+            switch (rendeltM) {
+                case "Kicsi":
+                    meret = 26;
+                    break;
+                case "Közepes":
+                    meret = 30;
+                    break;
+                default:
+                    meret = 50;
             }
             MyAlert.alertWithAction(new Alert(Alert.AlertType.INFORMATION), "Sikeres hozzáadás",
                     rendelesekConnection.insertRendeles(
@@ -207,7 +210,7 @@ public class RendelesekController implements Initializable {
         }
     }
 
-    private void setRefresh(){
+    private void setRefresh() {
         refresh.setOnAction(e -> {
             tw.setItems(FXCollections.observableArrayList(rendelesekConnection.getRendelesek()));
         });

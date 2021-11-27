@@ -1,8 +1,7 @@
-package hu.banattila.beadando_prog.utils;
+package hu.banattila.beadando_prog.utils.connection;
 
 import hu.banattila.beadando_prog.models.Dolgozo;
 import hu.banattila.beadando_prog.models.Futar;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

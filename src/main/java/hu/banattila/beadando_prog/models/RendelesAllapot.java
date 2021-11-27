@@ -13,7 +13,7 @@ public class RendelesAllapot {
         this.allapota = allapota;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
@@ -23,7 +23,7 @@ public class RendelesAllapot {
     }
 
     public String isAllapota() {
-        return allapota?"Teljesített":"Nem teljesített";
+        return allapota ? "Teljesített" : "Nem teljesített";
     }
 
 }

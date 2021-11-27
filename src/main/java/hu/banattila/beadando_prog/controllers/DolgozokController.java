@@ -1,10 +1,9 @@
-package hu.banattila.beadando_prog;
+package hu.banattila.beadando_prog.controllers;
 
 import hu.banattila.beadando_prog.models.Dolgozo;
-import hu.banattila.beadando_prog.models.Feltet;
 import hu.banattila.beadando_prog.models.Futar;
-import hu.banattila.beadando_prog.utils.DolgozokConnection;
 import hu.banattila.beadando_prog.utils.MyAlert;
+import hu.banattila.beadando_prog.utils.connection.DolgozokConnection;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class DolgozokController implements Initializable {
@@ -293,7 +291,7 @@ public class DolgozokController implements Initializable {
         }
     }
 
-    private void setRefresh(){
+    private void setRefresh() {
         refresh.setOnAction(e -> {
             futarokTable.setItems(FXCollections.observableArrayList(dc.getFutarok()));
             dolgozokTable.setItems(FXCollections.observableArrayList(dc.getDolgozok()));
