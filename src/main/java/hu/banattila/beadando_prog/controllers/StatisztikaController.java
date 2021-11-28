@@ -1,6 +1,7 @@
 package hu.banattila.beadando_prog.controllers;
 
 import hu.banattila.beadando_prog.models.statisztika.ElmultNapok;
+import hu.banattila.beadando_prog.models.statisztika.LegtobbetFizetett;
 import hu.banattila.beadando_prog.models.statisztika.LegugyesebbFutar;
 import hu.banattila.beadando_prog.utils.connection.StatisztikaConnection;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ public class StatisztikaController implements Initializable {
     private StatisztikaConnection conn;
 
     @FXML
-    private BarChart<String, Integer> elmultHetekDia;
+    private BarChart<String, Number> elmultHetekDia;
 
     @FXML
     private TextField hetekSzama;
@@ -42,13 +43,14 @@ public class StatisztikaController implements Initializable {
         for (int i = 0; i < elmultNapok.size(); ++i) {
             boolean torolt = false;
             ElmultNapok nap = elmultNapok.get(i);
-            XYChart.Series<String, Integer> series = new XYChart.Series<>();
-            series.setName(elmultNapok.get(i).getFajta());
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(nap.getFajta());
             for (int j = i; j < elmultNapok.size(); ++j) {
                 ElmultNapok belso = elmultNapok.get(j);
                 if (nap.getFajta().equals(belso.getFajta())) {
-                    series.getData().add(new XYChart.Data<>(elmultNapok.get(j).getDate(), elmultNapok.get(j).getMennyiseg()));
+                    series.getData().add(new XYChart.Data<>(belso.getDate(), belso.getMennyiseg()));
                     elmultNapok.remove(j);
+                    --j;
                     torolt = true;
                 }
             }
@@ -94,6 +96,18 @@ public class StatisztikaController implements Initializable {
     }
 
     @FXML
+    private Label legtobbetFizetettUgyfel;
+
+    @FXML
+    private Label legtobbetFizetett;
+
+    private void setLegtobbetFizetett(){
+        LegtobbetFizetett f = conn.getLegtobbetFizetett();
+        legtobbetFizetett.setText(Integer.toString(f.getOsszeg()));
+        legtobbetFizetettUgyfel.setText(f.getNev());
+    }
+
+    @FXML
     private Button refresh;
 
     private void setRefresh() {
@@ -101,6 +115,7 @@ public class StatisztikaController implements Initializable {
             setLegnepszerubb();
             setHetekKivalaszt();
             setLegugyesebbFutar();
+            setLegtobbetFizetett();
         });
     }
 
@@ -113,5 +128,6 @@ public class StatisztikaController implements Initializable {
         setChart();
         setLegnepszerubb();
         setLegugyesebbFutar();
+        setLegtobbetFizetett();
     }
 }

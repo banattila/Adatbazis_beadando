@@ -2,6 +2,7 @@ package hu.banattila.beadando_prog.utils.connection;
 
 import hu.banattila.beadando_prog.models.statisztika.ElmultNapok;
 import hu.banattila.beadando_prog.models.statisztika.LegnepszerubbFajta;
+import hu.banattila.beadando_prog.models.statisztika.LegtobbetFizetett;
 import hu.banattila.beadando_prog.models.statisztika.LegugyesebbFutar;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -85,6 +86,34 @@ public class StatisztikaConnection extends PizzeriaConnection {
                 res = new LegugyesebbFutar(rs.getString("nev"), rs.getInt("munkaja"));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConnection();
+        return res;
+    }
+
+    public LegtobbetFizetett getLegtobbetFizetett(){
+        LegtobbetFizetett res = null;
+        connecting();
+
+        try {
+            pstmt = conn.prepareStatement("SELECT email, SUM(fizetendo) AS fizetett FROM RENDELES " +
+                    " INNER JOIN RENDELES_OSSZEGE ON RENDELES.fajta = RENDELES_OSSZEGE.fajta " +
+                    "AND RENDELES.meret = RENDELES_OSSZEGE.meret " +
+                    "AND RENDELES.rendelt_mennyiseg = RENDELES_OSSZEGE.rendelt_mennyiseg " +
+                    "GROUP BY email HAVING fizetett = (" +
+                    "SELECT MAX(fiz) FROM (" +
+                    "SELECT SUM(fizetendo) AS fiz FROM RENDELES" +
+                    " INNER JOIN RENDELES_OSSZEGE ON RENDELES.fajta = RENDELES_OSSZEGE.fajta " +
+                    "AND RENDELES.meret = RENDELES_OSSZEGE.meret AND" +
+                    " RENDELES.rendelt_mennyiseg = RENDELES_OSSZEGE.rendelt_mennyiseg " +
+                    "GROUP BY RENDELES.email) AS RRf);");
+
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                res = new LegtobbetFizetett(rs.getString("email"), rs.getInt("fizetett"));
+            }
+        } catch (SQLException e){
             e.printStackTrace();
         }
         closeConnection();

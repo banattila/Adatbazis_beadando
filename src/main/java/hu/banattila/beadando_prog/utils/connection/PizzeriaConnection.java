@@ -2,7 +2,7 @@ package hu.banattila.beadando_prog.utils.connection;
 
 import java.sql.*;
 
-public class PizzeriaConnection {
+public abstract class PizzeriaConnection {
 
     Connection conn;
     PreparedStatement pstmt;
