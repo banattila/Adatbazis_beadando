@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: bisque;"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="hu.banattila.beadando_prog.controllers.UgyfelController">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: bisque;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.banattila.beadando_prog.controllers.UgyfelController">
     <TableView id="tw" fx:id="tw" prefHeight="337.0" prefWidth="732.0">
         <columns>
-            <TableColumn id="email" fx:id="email" prefWidth="337.0" text="Email"/>
-            <TableColumn fx:id="vezeteknev" prefWidth="175.0" text="Vezetéknév"/>
-            <TableColumn fx:id="keresztnev" prefWidth="219.0" text="Keresztnév"/>
-            <TableColumn prefWidth="75.0" text="Column X"/>
+            <TableColumn id="email" fx:id="email" prefWidth="337.0" text="Email" />
+            <TableColumn fx:id="vezeteknev" prefWidth="175.0" text="Vezetéknév" />
+            <TableColumn fx:id="keresztnev" prefWidth="216.0" text="Keresztnév" />
         </columns>
     </TableView>
     <AnchorPane layoutX="732.0" prefHeight="297.0" prefWidth="292.0" style="-fx-background-color: antiquewhite;">
         <Label layoutX="40.0" layoutY="156.0" text="Kijelölt ügyfél törlése">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Label>
-        <Button fx:id="deleteUgyfel" layoutX="34.0" layoutY="191.0" mnemonicParsing="false"
-                text="Kijelölt elem törlése">
+        <Button fx:id="deleteUgyfel" layoutX="34.0" layoutY="191.0" mnemonicParsing="false" text="Kijelölt elem törlése">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Button>
         <Button fx:id="refresh" layoutX="48.0" layoutY="51.0" mnemonicParsing="false" text="Adatok frissítése">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Button>
     </AnchorPane>
-    <AnchorPane layoutX="51.0" layoutY="351.0" prefHeight="164.0" prefWidth="875.0"
-                style="-fx-background-color: antiquewhite;">
+    <AnchorPane layoutX="51.0" layoutY="351.0" prefHeight="164.0" prefWidth="875.0" style="-fx-background-color: antiquewhite;">
         <Label layoutX="314.0" layoutY="28.0" text="Új ügyfél felvétele">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Label>
-        <TextField fx:id="newEmail" layoutX="32.0" layoutY="89.0" promptText="Email"/>
-        <TextField fx:id="newVNev" layoutX="220.0" layoutY="89.0" promptText="Vezetéknév"/>
-        <TextField fx:id="newKNev" layoutX="420.0" layoutY="89.0" promptText="Keresztnév"/>
+        <TextField fx:id="newEmail" layoutX="32.0" layoutY="89.0" promptText="Email" />
+        <TextField fx:id="newVNev" layoutX="220.0" layoutY="89.0" promptText="Vezetéknév" />
+        <TextField fx:id="newKNev" layoutX="420.0" layoutY="89.0" promptText="Keresztnév" />
         <Button fx:id="addUgyfel" layoutX="623.0" layoutY="85.0" mnemonicParsing="false" text="Ügyfél hozzáadása">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Button>
     </AnchorPane>
-    <AnchorPane layoutX="51.0" layoutY="535.0" prefHeight="200.0" prefWidth="875.0"
-                style="-fx-background-color: antiquewhite;">
-        <Label layoutX="34.0" layoutY="23.0"
-               text="Kijelölt ügyfél adadtainak frissítése. Az üresen hagyott mező értékei nem változnak">
+    <AnchorPane layoutX="51.0" layoutY="535.0" prefHeight="200.0" prefWidth="875.0" style="-fx-background-color: antiquewhite;">
+        <Label layoutX="34.0" layoutY="23.0" text="Kijelölt ügyfél adadtainak frissítése. Az üresen hagyott mező értékei nem változnak">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Label>
-        <TextField fx:id="updateVNev" layoutX="75.0" layoutY="89.0" promptText="Vezetéknév"/>
-        <TextField fx:id="updateKNev" layoutX="289.0" layoutY="89.0" promptText="Keresztnév"/>
-        <Button fx:id="updateUgyfel" layoutX="498.0" layoutY="81.0" mnemonicParsing="false"
-                text="Ügyfél adatainak frissítése">
+        <TextField fx:id="updateVNev" layoutX="75.0" layoutY="89.0" promptText="Vezetéknév" />
+        <TextField fx:id="updateKNev" layoutX="289.0" layoutY="89.0" promptText="Keresztnév" />
+        <Button fx:id="updateUgyfel" layoutX="498.0" layoutY="81.0" mnemonicParsing="false" text="Ügyfél adatainak frissítése">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Button>
     </AnchorPane>

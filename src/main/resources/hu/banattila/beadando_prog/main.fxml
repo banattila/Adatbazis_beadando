@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="hu.banattila.beadando_prog.controllers.MainController">
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="hu.banattila.beadando_prog.controllers.MainController">
     <TabPane>
-        <Tab fx:id="ugyfelek" text="Ügyfelek">
-            <fx:include source="ugyfelek.fxml"/>
+        <Tab text="Ügyfelek">
+            <fx:include source="ugyfelek.fxml" />
         </Tab>
-        <Tab fx:id="dolgozok" text="Dolgozók">
-            <fx:include source="dolgozok.fxml"/>
+        <Tab text="Dolgozók">
+            <fx:include source="dolgozok.fxml" />
         </Tab>
-        <Tab fx:id="feltetek" text="Feltétek">
-            <fx:include source="feltetek.fxml"/>
+        <Tab text="Feltétek">
+            <fx:include source="feltetek.fxml" />
         </Tab>
-        <Tab fx:id="pizzak" text="Pizzák">
+        <Tab  text="Pizzák">
             <fx:include source="pizzak.fxml"/>
         </Tab>
-        <Tab fx:id="rendelesek" text="Rendelések">
-            <fx:include source="rendelesek_main.fxml"/>
+        <Tab text="Rendelések">
+            <fx:include source="rendelesek_main.fxml" />
         </Tab>
         <Tab text="Statisztikák">
-            <fx:include source="statisztika.fxml"/>
+            <fx:include source="statisztika.fxml" />
         </Tab>
     </TabPane>
 </AnchorPane>

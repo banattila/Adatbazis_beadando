@@ -13,16 +13,16 @@
     <TableView fx:id="tw" layoutX="-1.0" layoutY="-6.0" prefHeight="315.0" prefWidth="1054.0">
         <columns>
             <TableColumn fx:id="ugyfelmail" prefWidth="188.0" text="Ügyfél email címe" />
-            <TableColumn fx:id="rendeltPizza" minWidth="0.0" prefWidth="134.0" text="Rendelt pizza" />
-            <TableColumn fx:id="rendeltMeret" prefWidth="75.0" text="Méret" />
-            <TableColumn fx:id="rendeltMennyiseg" prefWidth="87.0" text="Mennyiség" />
-            <TableColumn fx:id="rendeltCim" prefWidth="194.0" text="Cím" />
-            <TableColumn fx:id="rendelesIdeje" prefWidth="165.0" text="Rendelés Ideje" />
-            <TableColumn fx:id="rendeltFutarAzonosito" prefWidth="104.0" text="Futár azon" />
-            <TableColumn fx:id="rendelesFizetendo" prefWidth="105.0" text="Fizetendő" />
+            <TableColumn fx:id="rendeltPizza" minWidth="0.0" prefWidth="156.0" text="Rendelt pizza" />
+            <TableColumn fx:id="rendeltMeret" prefWidth="84.0" text="Méret" />
+            <TableColumn fx:id="rendeltMennyiseg" prefWidth="94.0" text="Mennyiség" />
+            <TableColumn fx:id="rendeltCim" prefWidth="260.0" text="Cím" />
+            <TableColumn fx:id="rendelesIdeje" prefWidth="169.0" text="Rendelés Ideje" />
+            <TableColumn fx:id="rendeltFutarAzonosito" prefWidth="120.0" text="Futár azon" />
+            <TableColumn fx:id="rendelesFizetendo" prefWidth="101.0" text="Fizetendő" />
         </columns>
     </TableView>
-    <AnchorPane layoutX="14.0" layoutY="309.0" prefHeight="469.0" prefWidth="1040.0" style="-fx-background-color: bisque;">
+    <AnchorPane layoutX="-1.0" layoutY="309.0" prefHeight="469.0" prefWidth="1054.0" style="-fx-background-color: bisque;">
         <Button fx:id="insertRendeles" layoutX="448.0" layoutY="284.0" mnemonicParsing="false" text="Hozzáad">
             <font>
                 <Font size="17.0" />
