@@ -102,6 +102,20 @@ public class PizzakController implements Initializable {
     @FXML
     private Button refresh;
 
+    private void setNumberFields(){
+        newpizzaAr.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                newpizzaAr.setText(oldValue);
+            }
+        });
+
+        updatepizzaAr.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                updatepizzaAr.setText(oldValue);
+            }
+        });
+    }
+
     private void addNewCsaladiPizza() {
         boolean ok = true;
         String fajta = newpizzaFajta.getText();
@@ -306,5 +320,6 @@ public class PizzakController implements Initializable {
         setColumns();
         setUpdatePizzak();
         setDeletePizzak();
+        setNumberFields();
     }
 }

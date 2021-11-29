@@ -30,7 +30,7 @@ public class RendelesekController implements Initializable {
     private TableColumn<Rendeles, String> rendeltPizza;
 
     @FXML
-    private TableColumn<Rendeles, Integer> rendeltMeret;
+    private TableColumn<Rendeles, String> rendeltMeret;
 
     @FXML
     private TableColumn<Rendeles, Integer> rendeltMennyiseg;
@@ -50,7 +50,7 @@ public class RendelesekController implements Initializable {
     private void setColumns() {
         rendelesIdeje.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getRendelesIdeje()));
         rendeltPizza.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getFajta()));
-        rendeltMeret.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getMeret()).asObject());
+        rendeltMeret.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMeret()));
         rendeltMennyiseg.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getRendeltMennyiseg()).asObject());
         rendeltCim.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCim()));
         rendeltFutarAzonosito.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getAdoszam()));
@@ -73,6 +73,10 @@ public class RendelesekController implements Initializable {
             res = false;
             new MyAlert("Hibás érték", "Nem lehet üres az email értéke");
         }
+        else if (!ugyfelEmail.getText().contains("@")) {
+            new MyAlert("Hibás érték", "Az nem valid email cím");
+            res = false;
+        }
         if (ugyfelVnev.getText().isEmpty() || ugyfelVnev.getText().isBlank()) {
             res = false;
             new MyAlert("Hibás érték", "Nem lehet üres a vezetéknév értéke");
@@ -91,7 +95,7 @@ public class RendelesekController implements Initializable {
     private void setRendeltFajtaEsMeret() {
         rendeltPizzaFajta.setItems(
                 FXCollections.observableArrayList(pizzaConnection.pizzaFajtak()));
-        rendeltmeret.setItems(FXCollections.observableArrayList("Kicsi", "Közepes", "Családi"));
+        rendeltmeret.setItems(FXCollections.observableArrayList("Kicsi (26cm)", "Közepes (30cm)", "Családi (50cm)"));
         SingleSelectionModel<String> sm = rendeltmeret.getSelectionModel();
         sm.select(2);
     }

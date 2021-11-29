@@ -69,6 +69,19 @@ public class FeltetekController implements Initializable {
     @FXML
     private Button refresh;
 
+    private void setNumberFields(){
+        addFeltetAr.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                addFeltetAr.setText(oldValue);
+            }
+        });
+
+        updateFeltetAr.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                updateFeltetAr.setText(oldValue);
+            }
+        });
+    }
 
     private void selectFeltetek() {
         ftw.setItems(FXCollections.observableArrayList(feltetConnection.getFeltetek()));
@@ -178,7 +191,7 @@ public class FeltetekController implements Initializable {
         ftw.setItems(FXCollections.observableArrayList(feltetConnection.getFeltetek()));
         setRefresh();
 
-
+        setNumberFields();
         selectFeltetek();
         searchResutlAr.setEditable(false);
         searchResutlAr.setDisable(false);

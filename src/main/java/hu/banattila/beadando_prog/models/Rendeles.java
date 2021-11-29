@@ -43,8 +43,14 @@ public class Rendeles {
         return fajta;
     }
 
-    public int getMeret() {
-        return meret;
+    public String getMeret() {
+        String res;
+        switch (meret){
+            case 26: res = "Kicsi";break;
+            case 30: res = "Közepes"; break;
+            default: res = "Családi";
+        }
+        return res;
     }
 
     public int getRendeltMennyiseg() {
